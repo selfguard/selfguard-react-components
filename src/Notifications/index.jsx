@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Input from 'react-phone-input-2'
 import Toastify from 'toastify-js'
 import $ from 'jquery';
@@ -11,6 +11,16 @@ const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance()
 
 
 const Notifications = ({api_key, userAddress}) => {
+
+  function usePrevious(value) {
+    const ref = useRef();
+    useEffect(() => {
+      ref.current = value; //assign the value of ref to the argument
+    },[value]); //this code will run when the value of 'value' changes
+    return ref.current; //in the end, return the current ref value.
+  }
+
+  const prevAccount = usePrevious(userAddress)
 
   let sg = new SelfGuard(api_key);
 
@@ -30,7 +40,6 @@ const Notifications = ({api_key, userAddress}) => {
     await sg.sendEmail({address:key,from:"test@selfguard.xyz", fromName:"testFromName", replyTo:"test@selfguard.xyz", replyToName:"testReplyToName", subject:"testSubject", html:"testContent"});
   }
 
-
   /* Setting up the state of the component. */
   let [loading, setLoading] = useState(false);
   let [email, setEmail] = useState(null);
@@ -39,28 +48,37 @@ const Notifications = ({api_key, userAddress}) => {
   let [requested, setRequested] = useState(false);
   let [activated, setActivated] = useState(false);
 
+  async function fetchData(){
+    let sg = new SelfGuard(api_key);
+    //get email
+      try {
+        let profile = await sg.get(userAddress+'-profile');
+        if(profile.email || profile.phone) setActivated(true);
+        else setActivated(false);
+        setEmail(profile.email);
+        setPhone(profile.phone);
+      }
+      catch(err){
+        console.log(err);
+        setActivated(false);
+        setEmail(null);
+        setPhone(null);
+      }
+      setRequested(true);
+  }
+
   /* This is a React hook that is called when the component is mounted. It is used to fetch the user's
   profile from the SelfGuard API. */
   useEffect(()=>{
-    async function fetchData(){
-      let sg = new SelfGuard(api_key);
-      //get email
-        try {
-          sg.get(userAddress+'-profile').then((profile)=> {
-            if(profile.email || profile.phone) setActivated(true);
-            setEmail(profile.email);
-            setPhone(profile.phone);
-          })
-        }
-        catch(err){
-          console.log({err});
-          setEmail(null);
-          setPhone(null);
-        }
-        setRequested(true);
-    }
     fetchData();
   },[])
+
+  useEffect(()=>{
+    console.log({prevAccount, userAddress});
+    if(prevAccount !== userAddress && userAddress){
+      fetchData();
+    }
+  },[userAddress,prevAccount])
 
   /**
    * It takes the email, phone, and userAddress from the state and dispatches an action to update the

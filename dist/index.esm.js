@@ -1,7 +1,7 @@
 import _slicedToArray from '@babel/runtime/helpers/slicedToArray';
 import _asyncToGenerator from '@babel/runtime/helpers/asyncToGenerator';
 import _regeneratorRuntime from '@babel/runtime/regenerator';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Input from 'react-phone-input-2';
 import Toastify from 'toastify-js';
 import $ from 'jquery';
@@ -19,6 +19,17 @@ var phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 var Notifications = function Notifications(_ref) {
   var api_key = _ref.api_key,
       userAddress = _ref.userAddress;
+
+  function usePrevious(value) {
+    var ref = useRef();
+    useEffect(function () {
+      ref.current = value; //assign the value of ref to the argument
+    }, [value]); //this code will run when the value of 'value' changes
+
+    return ref.current; //in the end, return the current ref value.
+  }
+
+  var prevAccount = usePrevious(userAddress);
   var sg = new SelfGuard(api_key);
   /**
    * It sends a text message to the phone number that is passed in as a parameter.
@@ -116,52 +127,69 @@ var Notifications = function Notifications(_ref) {
       _useState12 = _slicedToArray(_useState11, 2),
       activated = _useState12[0],
       setActivated = _useState12[1];
+
+  function fetchData() {
+    return _fetchData.apply(this, arguments);
+  }
   /* This is a React hook that is called when the component is mounted. It is used to fetch the user's
   profile from the SelfGuard API. */
 
 
-  useEffect(function () {
-    function fetchData() {
-      return _fetchData.apply(this, arguments);
-    }
+  function _fetchData() {
+    _fetchData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee3() {
+      var sg, profile;
+      return _regeneratorRuntime.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              sg = new SelfGuard(api_key); //get email
 
-    function _fetchData() {
-      _fetchData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee3() {
-        var sg;
-        return _regeneratorRuntime.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                sg = new SelfGuard(api_key); //get email
+              _context3.prev = 1;
+              _context3.next = 4;
+              return sg.get(userAddress + '-profile');
 
-                try {
-                  sg.get(userAddress + '-profile').then(function (profile) {
-                    if (profile.email || profile.phone) setActivated(true);
-                    setEmail(profile.email);
-                    setPhone(profile.phone);
-                  });
-                } catch (err) {
-                  console.log({
-                    err: err
-                  });
-                  setEmail(null);
-                  setPhone(null);
-                }
+            case 4:
+              profile = _context3.sent;
+              if (profile.email || profile.phone) setActivated(true);else setActivated(false);
+              setEmail(profile.email);
+              setPhone(profile.phone);
+              _context3.next = 16;
+              break;
 
-                setRequested(true);
+            case 10:
+              _context3.prev = 10;
+              _context3.t0 = _context3["catch"](1);
+              console.log(_context3.t0);
+              setActivated(false);
+              setEmail(null);
+              setPhone(null);
 
-              case 3:
-              case "end":
-                return _context3.stop();
-            }
+            case 16:
+              setRequested(true);
+
+            case 17:
+            case "end":
+              return _context3.stop();
           }
-        }, _callee3);
-      }));
-      return _fetchData.apply(this, arguments);
-    }
+        }
+      }, _callee3, null, [[1, 10]]);
+    }));
+    return _fetchData.apply(this, arguments);
+  }
 
+  useEffect(function () {
     fetchData();
   }, []);
+  useEffect(function () {
+    console.log({
+      prevAccount: prevAccount,
+      userAddress: userAddress
+    });
+
+    if (prevAccount !== userAddress && userAddress) {
+      fetchData();
+    }
+  }, [userAddress, prevAccount]);
   /**
    * It takes the email, phone, and userAddress from the state and dispatches an action to update the
    * profile

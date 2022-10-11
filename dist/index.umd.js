@@ -380,7 +380,7 @@
       alt: ""
     }), "SelfGuard"))))))), /*#__PURE__*/React__default["default"].createElement("button", {
       onClick: showModal,
-      className: "btn ".concat(email || phone ? "btn-success" : "btn-dark", " vertical")
+      className: "btn ".concat(activated ? "btn-success" : "btn-dark", " vertical")
     }, /*#__PURE__*/React__default["default"].createElement("i", {
       style: {
         fontSize: '20px',

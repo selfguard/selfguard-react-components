@@ -373,7 +373,7 @@ var Notifications = function Notifications(_ref) {
     alt: ""
   }), "SelfGuard"))))))), /*#__PURE__*/React.createElement("button", {
     onClick: showModal,
-    className: "btn ".concat(email || phone ? "btn-success" : "btn-dark", " vertical")
+    className: "btn ".concat(activated ? "btn-success" : "btn-dark", " vertical")
   }, /*#__PURE__*/React.createElement("i", {
     style: {
       fontSize: '20px',

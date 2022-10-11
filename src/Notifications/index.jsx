@@ -174,7 +174,7 @@ const Notifications = ({api_key, userAddress}) => {
           </div>
         </div>
       </div>
-      <button onClick={showModal}className={`btn ${(email || phone) ? "btn-success" : "btn-dark"} vertical`}> 
+      <button onClick={showModal}className={`btn ${(activated) ? "btn-success" : "btn-dark"} vertical`}> 
         <i style={{fontSize:'20px',marginRight:'10px'}} className='bi bi-bell'></i>
         {activated ? "Notifiations Activated" : "Enable Notifications"}
       </button>

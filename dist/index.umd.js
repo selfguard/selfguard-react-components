@@ -22,27 +22,24 @@
   n(css,{});
 
   var phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
-
   var Notifications = function Notifications(_ref) {
     var api_key = _ref.api_key,
-        userAddress = _ref.userAddress;
-
+      userAddress = _ref.userAddress;
     function usePrevious(value) {
       var ref = React.useRef();
       React.useEffect(function () {
         ref.current = value; //assign the value of ref to the argument
       }, [value]); //this code will run when the value of 'value' changes
-
       return ref.current; //in the end, return the current ref value.
     }
 
     var prevAccount = usePrevious(userAddress);
     var sg = new SelfGuard__default["default"](api_key);
+
     /**
      * It sends a text message to the phone number that is passed in as a parameter.
      * @param key - The phone number to send the SMS to.
      */
-
     var sendSMS = /*#__PURE__*/function () {
       var _ref2 = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee(key) {
         return _regeneratorRuntime__default["default"].wrap(function _callee$(_context) {
@@ -54,7 +51,6 @@
                   address: key,
                   text: "Hello, Thank you for signing up for notifications."
                 });
-
               case 2:
               case "end":
                 return _context.stop();
@@ -62,17 +58,15 @@
           }
         }, _callee);
       }));
-
       return function sendSMS(_x) {
         return _ref2.apply(this, arguments);
       };
     }();
+
     /**
      * It sends an email to the address specified in the key parameter
      * @param key - the email address you want to send to
      */
-
-
     var sendEmail = /*#__PURE__*/function () {
       var _ref3 = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee2(key) {
         return _regeneratorRuntime__default["default"].wrap(function _callee2$(_context2) {
@@ -89,7 +83,6 @@
                   subject: "testSubject",
                   html: "testContent"
                 });
-
               case 2:
               case "end":
                 return _context2.stop();
@@ -97,51 +90,40 @@
           }
         }, _callee2);
       }));
-
       return function sendEmail(_x2) {
         return _ref3.apply(this, arguments);
       };
     }();
+
     /* Setting up the state of the component. */
-
-
     var _useState = React.useState(false),
-        _useState2 = _slicedToArray__default["default"](_useState, 2),
-        loading = _useState2[0],
-        setLoading = _useState2[1];
-
+      _useState2 = _slicedToArray__default["default"](_useState, 2),
+      loading = _useState2[0],
+      setLoading = _useState2[1];
     var _useState3 = React.useState(null),
-        _useState4 = _slicedToArray__default["default"](_useState3, 2),
-        email = _useState4[0],
-        setEmail = _useState4[1];
-
+      _useState4 = _slicedToArray__default["default"](_useState3, 2),
+      email = _useState4[0],
+      setEmail = _useState4[1];
     var _useState5 = React.useState(null),
-        _useState6 = _slicedToArray__default["default"](_useState5, 2),
-        phone = _useState6[0],
-        setPhone = _useState6[1];
-
+      _useState6 = _slicedToArray__default["default"](_useState5, 2),
+      phone = _useState6[0],
+      setPhone = _useState6[1];
     var _useState7 = React.useState(null),
-        _useState8 = _slicedToArray__default["default"](_useState7, 2),
-        country = _useState8[0],
-        setCountry = _useState8[1];
-
+      _useState8 = _slicedToArray__default["default"](_useState7, 2),
+      country = _useState8[0],
+      setCountry = _useState8[1];
     var _useState9 = React.useState(false),
-        _useState10 = _slicedToArray__default["default"](_useState9, 2),
-        requested = _useState10[0],
-        setRequested = _useState10[1];
-
+      _useState10 = _slicedToArray__default["default"](_useState9, 2),
+      requested = _useState10[0],
+      setRequested = _useState10[1];
     var _useState11 = React.useState(false),
-        _useState12 = _slicedToArray__default["default"](_useState11, 2),
-        activated = _useState12[0],
-        setActivated = _useState12[1];
-
+      _useState12 = _slicedToArray__default["default"](_useState11, 2),
+      activated = _useState12[0],
+      setActivated = _useState12[1];
     function fetchData() {
       return _fetchData.apply(this, arguments);
-    }
-    /* This is a React hook that is called when the component is mounted. It is used to fetch the user's
-    profile from the SelfGuard API. */
-
-
+    } /* This is a React hook that is called when the component is mounted. It is used to fetch the user's
+      profile from the SelfGuard API. */
     function _fetchData() {
       _fetchData = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee3() {
         var sg, profile;
@@ -150,11 +132,9 @@
             switch (_context3.prev = _context3.next) {
               case 0:
                 sg = new SelfGuard__default["default"](api_key); //get email
-
                 _context3.prev = 1;
                 _context3.next = 4;
                 return sg.get(userAddress + '-profile');
-
               case 4:
                 profile = _context3.sent;
                 if (profile.email || profile.phone) setActivated(true);else setActivated(false);
@@ -162,7 +142,6 @@
                 setPhone(profile.phone);
                 _context3.next = 16;
                 break;
-
               case 10:
                 _context3.prev = 10;
                 _context3.t0 = _context3["catch"](1);
@@ -170,10 +149,8 @@
                 setActivated(false);
                 setEmail(null);
                 setPhone(null);
-
               case 16:
                 setRequested(true);
-
               case 17:
               case "end":
                 return _context3.stop();
@@ -183,7 +160,6 @@
       }));
       return _fetchData.apply(this, arguments);
     }
-
     React.useEffect(function () {
       fetchData();
     }, []);
@@ -192,20 +168,18 @@
         prevAccount: prevAccount,
         userAddress: userAddress
       });
-
       if (prevAccount !== userAddress && userAddress) {
         fetchData();
       }
     }, [userAddress, prevAccount]);
+
     /**
      * It takes the email, phone, and userAddress from the state and dispatches an action to update the
      * profile
      */
-
     function updateProfile() {
       return _updateProfile.apply(this, arguments);
     }
-
     function _updateProfile() {
       _updateProfile = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee4() {
         return _regeneratorRuntime__default["default"].wrap(function _callee4$(_context4) {
@@ -216,12 +190,10 @@
                 _context4.prev = 1;
                 if (phone === undefined || phone === null) phone = '';
                 if (!email) email = '';
-
                 if (!(!isValidEmail(email) && email !== "")) {
                   _context4.next = 8;
                   break;
                 }
-
                 Toastify__default["default"]({
                   text: "Email is invalid",
                   style: {
@@ -230,13 +202,11 @@
                 }).showToast();
                 setLoading(false);
                 return _context4.abrupt("return");
-
               case 8:
                 if (!(phone !== "" && !phoneUtil.isValidNumber(phoneUtil.parse(phone, country)))) {
                   _context4.next = 12;
                   break;
                 }
-
                 Toastify__default["default"]({
                   text: "Phone # is invalid",
                   style: {
@@ -245,14 +215,12 @@
                 }).showToast();
                 setLoading(false);
                 return _context4.abrupt("return");
-
               case 12:
                 _context4.next = 14;
                 return sg.put(userAddress + '-profile', {
                   email: email,
                   phone: phone
                 });
-
               case 14:
                 if (email || phone) setActivated(true);
                 if (!email && !phone) setActivated(false);
@@ -268,12 +236,10 @@
                 $__default["default"]('#closeModal').click();
                 _context4.next = 26;
                 break;
-
               case 23:
                 _context4.prev = 23;
                 _context4.t0 = _context4["catch"](1);
                 setLoading(false);
-
               case 26:
               case "end":
                 return _context4.stop();
@@ -283,20 +249,16 @@
       }));
       return _updateProfile.apply(this, arguments);
     }
-
     var showModal = function showModal() {
       new window.bootstrap.Modal('#notificationsModal').show();
     };
-
     function isValidEmail(email) {
       return /\S+@\S+\.\S+/.test(email);
     }
-
     function updatePhone(v, c) {
       setPhone(v);
       setCountry(c.countryCode);
     }
-
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement("link", {
       rel: "stylesheet",
       href: "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
@@ -430,8 +392,8 @@
 
   var returnLibrary = function returnLibrary() {
     return {
-      Notifications: Notifications // you can add here other components that you want to export
-
+      Notifications: Notifications
+      // you can add here other components that you want to export
     };
   };
 

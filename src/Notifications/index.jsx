@@ -97,19 +97,30 @@ const Notifications = ({api_key, userAddress}) => {
         return;
       }
       await sg.updateProfile(userAddress,{email,phone});
+      let text = "Notifications Enabled";
+
       if(email || phone) setActivated(true);
-      if(!email && !phone) setActivated(false);
+      if(!email && !phone) {
+        text = "Notifications Disabled";
+        setActivated(false);
+      }
 
       if(phone) sendSMS(userAddress);
       if(email) sendEmail(userAddress);
 
       setLoading(false);
-      Toastify({text:"Profile Updated",style: {background: "linear-gradient(to right, #198754, #198751"}}).showToast();
+      Toastify({text,style: {background: "linear-gradient(to right, #198754, #198751"}}).showToast();
       $('#closeModal').click();
     }
     catch(err){
       setLoading(false);
     }
+  }
+
+  let disableNotifications = async () => {
+    await sg.updateProfile(userAddress,null);
+    setActivated(false);
+    Toastify({text:"Notifications Disabled",style: {background: "linear-gradient(to right, #198754, #198751"}}).showToast();
   }
 
   let showModal = () => {
@@ -171,9 +182,9 @@ const Notifications = ({api_key, userAddress}) => {
           </div>
         </div>
       </div>
-      <button onClick={showModal}className={`btn ${(activated) ? "btn-success" : "btn-dark"} vertical`}> 
-        <i style={{fontSize:'20px',marginRight:'10px'}} className='bi bi-bell'></i>
-        {activated ? "Notifiations Activated" : "Enable Notifications"}
+      <button onClick={!activated ? showModal : disableNotifications} className={`btn ${(activated) ? "btn-danger" : "btn-dark"} vertical`}> 
+        <i style={{fontSize:'20px',marginRight:'10px'}} className={`bi bi-${activated ? 'bell-slash' : 'bell'}`}></i>
+        {activated ? "Disable Notifications" : "Enable Notifications"}
       </button>
     </>
   );

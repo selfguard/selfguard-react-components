@@ -125,27 +125,27 @@
     } /* This is a React hook that is called when the component is mounted. It is used to fetch the user's
       profile from the SelfGuard API. */
     function _fetchData() {
-      _fetchData = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee3() {
+      _fetchData = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee4() {
         var sg, profile;
-        return _regeneratorRuntime__default["default"].wrap(function _callee3$(_context3) {
+        return _regeneratorRuntime__default["default"].wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
                 sg = new SelfGuard__default["default"](api_key); //get email
-                _context3.prev = 1;
-                _context3.next = 4;
+                _context4.prev = 1;
+                _context4.next = 4;
                 return sg.getProfile(userAddress);
               case 4:
-                profile = _context3.sent;
+                profile = _context4.sent;
                 if (profile.email || profile.phone) setActivated(true);else setActivated(false);
                 // setEmail(profile.email);
                 // setPhone(profile.phone);
-                _context3.next = 14;
+                _context4.next = 14;
                 break;
               case 8:
-                _context3.prev = 8;
-                _context3.t0 = _context3["catch"](1);
-                console.log(_context3.t0);
+                _context4.prev = 8;
+                _context4.t0 = _context4["catch"](1);
+                console.log(_context4.t0);
                 setActivated(false);
                 setEmail(null);
                 setPhone(null);
@@ -153,10 +153,10 @@
                 setRequested(true);
               case 15:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3, null, [[1, 8]]);
+        }, _callee4, null, [[1, 8]]);
       }));
       return _fetchData.apply(this, arguments);
     }
@@ -177,17 +177,18 @@
       return _updateProfile.apply(this, arguments);
     }
     function _updateProfile() {
-      _updateProfile = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee4() {
-        return _regeneratorRuntime__default["default"].wrap(function _callee4$(_context4) {
+      _updateProfile = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee5() {
+        var text;
+        return _regeneratorRuntime__default["default"].wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
                 setLoading(true);
-                _context4.prev = 1;
+                _context5.prev = 1;
                 if (phone === undefined || phone === null) phone = '';
                 if (!email) email = '';
                 if (!(!isValidEmail(email) && email !== "")) {
-                  _context4.next = 8;
+                  _context5.next = 8;
                   break;
                 }
                 Toastify__default["default"]({
@@ -197,10 +198,10 @@
                   }
                 }).showToast();
                 setLoading(false);
-                return _context4.abrupt("return");
+                return _context5.abrupt("return");
               case 8:
                 if (!(phone !== "" && !phoneUtil.isValidNumber(phoneUtil.parse(phone, country)))) {
-                  _context4.next = 12;
+                  _context5.next = 12;
                   break;
                 }
                 Toastify__default["default"]({
@@ -210,41 +211,72 @@
                   }
                 }).showToast();
                 setLoading(false);
-                return _context4.abrupt("return");
+                return _context5.abrupt("return");
               case 12:
-                _context4.next = 14;
+                _context5.next = 14;
                 return sg.updateProfile(userAddress, {
                   email: email,
                   phone: phone
                 });
               case 14:
+                text = "Notifications Enabled";
                 if (email || phone) setActivated(true);
-                if (!email && !phone) setActivated(false);
+                if (!email && !phone) {
+                  text = "Notifications Disabled";
+                  setActivated(false);
+                }
                 if (phone) sendSMS(userAddress);
                 if (email) sendEmail(userAddress);
                 setLoading(false);
                 Toastify__default["default"]({
-                  text: "Profile Updated",
+                  text: text,
                   style: {
                     background: "linear-gradient(to right, #198754, #198751"
                   }
                 }).showToast();
                 $__default["default"]('#closeModal').click();
-                _context4.next = 26;
+                _context5.next = 27;
                 break;
-              case 23:
-                _context4.prev = 23;
-                _context4.t0 = _context4["catch"](1);
+              case 24:
+                _context5.prev = 24;
+                _context5.t0 = _context5["catch"](1);
                 setLoading(false);
-              case 26:
+              case 27:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4, null, [[1, 23]]);
+        }, _callee5, null, [[1, 24]]);
       }));
       return _updateProfile.apply(this, arguments);
     }
+    var disableNotifications = /*#__PURE__*/function () {
+      var _ref4 = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee3() {
+        return _regeneratorRuntime__default["default"].wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return sg.updateProfile(userAddress, null);
+              case 2:
+                setActivated(false);
+                Toastify__default["default"]({
+                  text: "Notifications Disabled",
+                  style: {
+                    background: "linear-gradient(to right, #198754, #198751"
+                  }
+                }).showToast();
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+      return function disableNotifications() {
+        return _ref4.apply(this, arguments);
+      };
+    }();
     var showModal = function showModal() {
       new window.bootstrap.Modal('#notificationsModal').show();
     };
@@ -375,15 +407,15 @@
       className: "d-inline-block",
       alt: ""
     }), "SelfGuard"))))))), /*#__PURE__*/React__default["default"].createElement("button", {
-      onClick: showModal,
-      className: "btn ".concat(activated ? "btn-success" : "btn-dark", " vertical")
+      onClick: !activated ? showModal : disableNotifications,
+      className: "btn ".concat(activated ? "btn-danger" : "btn-dark", " vertical")
     }, /*#__PURE__*/React__default["default"].createElement("i", {
       style: {
         fontSize: '20px',
         marginRight: '10px'
       },
-      className: "bi bi-bell"
-    }), activated ? "Notifiations Activated" : "Enable Notifications"));
+      className: "bi bi-".concat(activated ? 'bell-slash' : 'bell')
+    }), activated ? "Disable Notifications" : "Enable Notifications"));
   };
 
   var returnLibrary = function returnLibrary() {

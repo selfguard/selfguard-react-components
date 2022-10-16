@@ -141,29 +141,29 @@ var Notifications = function Notifications(_ref) {
               sg = new SelfGuard__default["default"](api_key); //get email
               _context3.prev = 1;
               _context3.next = 4;
-              return sg.get(userAddress + '-profile');
+              return sg.getProfile(userAddress);
             case 4:
               profile = _context3.sent;
               if (profile.email || profile.phone) setActivated(true);else setActivated(false);
-              setEmail(profile.email);
-              setPhone(profile.phone);
-              _context3.next = 16;
+              // setEmail(profile.email);
+              // setPhone(profile.phone);
+              _context3.next = 14;
               break;
-            case 10:
-              _context3.prev = 10;
+            case 8:
+              _context3.prev = 8;
               _context3.t0 = _context3["catch"](1);
               console.log(_context3.t0);
               setActivated(false);
               setEmail(null);
               setPhone(null);
-            case 16:
+            case 14:
               setRequested(true);
-            case 17:
+            case 15:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[1, 10]]);
+      }, _callee3, null, [[1, 8]]);
     }));
     return _fetchData.apply(this, arguments);
   }
@@ -171,10 +171,6 @@ var Notifications = function Notifications(_ref) {
     fetchData();
   }, []);
   React.useEffect(function () {
-    console.log({
-      prevAccount: prevAccount,
-      userAddress: userAddress
-    });
     if (prevAccount !== userAddress && userAddress) {
       fetchData();
     }
@@ -224,7 +220,7 @@ var Notifications = function Notifications(_ref) {
               return _context4.abrupt("return");
             case 12:
               _context4.next = 14;
-              return sg.put(userAddress + '-profile', {
+              return sg.updateProfile(userAddress, {
                 email: email,
                 phone: phone
               });

@@ -9,7 +9,6 @@ import './index.css';
 import 'react-phone-input-2/lib/style.css'
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 
-
 const Notifications = ({api_key, userAddress}) => {
 
   function usePrevious(value) {
@@ -19,7 +18,6 @@ const Notifications = ({api_key, userAddress}) => {
     },[value]); //this code will run when the value of 'value' changes
     return ref.current; //in the end, return the current ref value.
   }
-
   const prevAccount = usePrevious(userAddress)
 
   let sg = new SelfGuard(api_key);
@@ -52,11 +50,11 @@ const Notifications = ({api_key, userAddress}) => {
     let sg = new SelfGuard(api_key);
     //get email
       try {
-        let profile = await sg.get(userAddress+'-profile');
+        let profile = await sg.getProfile(userAddress);
         if(profile.email || profile.phone) setActivated(true);
         else setActivated(false);
-        setEmail(profile.email);
-        setPhone(profile.phone);
+        // setEmail(profile.email);
+        // setPhone(profile.phone);
       }
       catch(err){
         console.log(err);
@@ -74,7 +72,6 @@ const Notifications = ({api_key, userAddress}) => {
   },[])
 
   useEffect(()=>{
-    console.log({prevAccount, userAddress});
     if(prevAccount !== userAddress && userAddress){
       fetchData();
     }
@@ -99,7 +96,7 @@ const Notifications = ({api_key, userAddress}) => {
         setLoading(false);
         return;
       }
-      await sg.put(userAddress+'-profile',{email,phone});
+      await sg.updateProfile(userAddress,{email,phone});
       if(email || phone) setActivated(true);
       if(!email && !phone) setActivated(false);
 

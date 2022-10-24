@@ -8,8 +8,9 @@ import SelfGuard from 'selfguard-client';
 import './index.css';
 import 'react-phone-input-2/lib/style.css'
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
+let domain = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL : "http://localhost:8080"
 
-const Notifications = ({api_key, userAddress}) => {
+const Notifications = ({api_key, userAddress, collection_name, text, subject, html}) => {
 
   function usePrevious(value) {
     const ref = useRef();
@@ -20,14 +21,14 @@ const Notifications = ({api_key, userAddress}) => {
   }
   const prevAccount = usePrevious(userAddress)
 
-  let sg = new SelfGuard(api_key);
+  let sg = new SelfGuard(api_key, null, null, domain);
 
   /**
    * It sends a text message to the phone number that is passed in as a parameter.
    * @param key - The phone number to send the SMS to.
    */
    let sendSMS = async (key) => {
-    await sg.sendSMS({address:key,text: "Hello, Thank you for signing up for notifications."});
+    await sg.sendSMS({address:key, collection_name, text});
   }
   
   /**
@@ -35,7 +36,7 @@ const Notifications = ({api_key, userAddress}) => {
    * @param key - the email address you want to send to
    */
   let sendEmail = async (key) => {
-    await sg.sendEmail({address:key,from:"test@selfguard.xyz", fromName:"testFromName", replyTo:"test@selfguard.xyz", replyToName:"testReplyToName", subject:"testSubject", html:"testContent"});
+    await sg.sendEmail({address:key, collection_name, subject, html});
   }
 
   /* Setting up the state of the component. */
@@ -47,10 +48,10 @@ const Notifications = ({api_key, userAddress}) => {
   let [activated, setActivated] = useState(false);
 
   async function fetchData(){
-    let sg = new SelfGuard(api_key);
+    let sg = new SelfGuard(api_key,null,null,domain);
     //get email
       try {
-        let profile = await sg.getProfile(userAddress);
+        let profile = await sg.getProfile({address:userAddress,collection_name});
         if(profile.email || profile.phone) setActivated(true);
         else setActivated(false);
         // setEmail(profile.email);
@@ -67,9 +68,9 @@ const Notifications = ({api_key, userAddress}) => {
 
   /* This is a React hook that is called when the component is mounted. It is used to fetch the user's
   profile from the SelfGuard API. */
-  useEffect(()=>{
-    fetchData();
-  },[])
+  // useEffect(()=>{
+  //   fetchData();
+  // },[])
 
   useEffect(()=>{
     if(prevAccount !== userAddress && userAddress){
@@ -96,7 +97,7 @@ const Notifications = ({api_key, userAddress}) => {
         setLoading(false);
         return;
       }
-      await sg.updateProfile(userAddress,{email,phone});
+      await sg.updateProfile({address:userAddress,value:{email,phone},collection_name});
       let text = "Notifications Enabled";
 
       if(email || phone) setActivated(true);
@@ -113,12 +114,14 @@ const Notifications = ({api_key, userAddress}) => {
       $('#closeModal').click();
     }
     catch(err){
+      console.log({err});
+      // Toastify({text:err,style: {background: "linear-gradient(to right, #dc3545, #dc3541"}}).showToast();
       setLoading(false);
     }
   }
 
   let disableNotifications = async () => {
-    await sg.updateProfile(userAddress,null);
+    await sg.updateProfile({address:userAddress,value:null, collection_name});
     setActivated(false);
     Toastify({text:"Notifications Disabled",style: {background: "linear-gradient(to right, #198754, #198751"}}).showToast();
   }

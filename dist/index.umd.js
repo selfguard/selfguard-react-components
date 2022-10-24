@@ -22,9 +22,14 @@
   n(css,{});
 
   var phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
+  var domain = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL : "http://localhost:8080";
   var Notifications = function Notifications(_ref) {
     var api_key = _ref.api_key,
-      userAddress = _ref.userAddress;
+      userAddress = _ref.userAddress,
+      collection_name = _ref.collection_name,
+      text = _ref.text,
+      subject = _ref.subject,
+      html = _ref.html;
     function usePrevious(value) {
       var ref = React.useRef();
       React.useEffect(function () {
@@ -34,7 +39,7 @@
     }
 
     var prevAccount = usePrevious(userAddress);
-    var sg = new SelfGuard__default["default"](api_key);
+    var sg = new SelfGuard__default["default"](api_key, null, null, domain);
 
     /**
      * It sends a text message to the phone number that is passed in as a parameter.
@@ -49,7 +54,8 @@
                 _context.next = 2;
                 return sg.sendSMS({
                   address: key,
-                  text: "Hello, Thank you for signing up for notifications."
+                  collection_name: collection_name,
+                  text: text
                 });
               case 2:
               case "end":
@@ -76,12 +82,9 @@
                 _context2.next = 2;
                 return sg.sendEmail({
                   address: key,
-                  from: "test@selfguard.xyz",
-                  fromName: "testFromName",
-                  replyTo: "test@selfguard.xyz",
-                  replyToName: "testReplyToName",
-                  subject: "testSubject",
-                  html: "testContent"
+                  collection_name: collection_name,
+                  subject: subject,
+                  html: html
                 });
               case 2:
               case "end":
@@ -122,8 +125,12 @@
       setActivated = _useState12[1];
     function fetchData() {
       return _fetchData.apply(this, arguments);
-    } /* This is a React hook that is called when the component is mounted. It is used to fetch the user's
-      profile from the SelfGuard API. */
+    }
+    /* This is a React hook that is called when the component is mounted. It is used to fetch the user's
+    profile from the SelfGuard API. */
+    // useEffect(()=>{
+    //   fetchData();
+    // },[])
     function _fetchData() {
       _fetchData = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee4() {
         var sg, profile;
@@ -131,10 +138,13 @@
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                sg = new SelfGuard__default["default"](api_key); //get email
+                sg = new SelfGuard__default["default"](api_key, null, null, domain); //get email
                 _context4.prev = 1;
                 _context4.next = 4;
-                return sg.getProfile(userAddress);
+                return sg.getProfile({
+                  address: userAddress,
+                  collection_name: collection_name
+                });
               case 4:
                 profile = _context4.sent;
                 if (profile.email || profile.phone) setActivated(true);else setActivated(false);
@@ -161,9 +171,6 @@
       return _fetchData.apply(this, arguments);
     }
     React.useEffect(function () {
-      fetchData();
-    }, []);
-    React.useEffect(function () {
       if (prevAccount !== userAddress && userAddress) {
         fetchData();
       }
@@ -178,7 +185,7 @@
     }
     function _updateProfile() {
       _updateProfile = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee5() {
-        var text;
+        var _text;
         return _regeneratorRuntime__default["default"].wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
@@ -214,34 +221,42 @@
                 return _context5.abrupt("return");
               case 12:
                 _context5.next = 14;
-                return sg.updateProfile(userAddress, {
-                  email: email,
-                  phone: phone
+                return sg.updateProfile({
+                  address: userAddress,
+                  value: {
+                    email: email,
+                    phone: phone
+                  },
+                  collection_name: collection_name
                 });
               case 14:
-                text = "Notifications Enabled";
+                _text = "Notifications Enabled";
                 if (email || phone) setActivated(true);
                 if (!email && !phone) {
-                  text = "Notifications Disabled";
+                  _text = "Notifications Disabled";
                   setActivated(false);
                 }
                 if (phone) sendSMS(userAddress);
                 if (email) sendEmail(userAddress);
                 setLoading(false);
                 Toastify__default["default"]({
-                  text: text,
+                  text: _text,
                   style: {
                     background: "linear-gradient(to right, #198754, #198751"
                   }
                 }).showToast();
                 $__default["default"]('#closeModal').click();
-                _context5.next = 27;
+                _context5.next = 28;
                 break;
               case 24:
                 _context5.prev = 24;
                 _context5.t0 = _context5["catch"](1);
+                console.log({
+                  err: _context5.t0
+                });
+                // Toastify({text:err,style: {background: "linear-gradient(to right, #dc3545, #dc3541"}}).showToast();
                 setLoading(false);
-              case 27:
+              case 28:
               case "end":
                 return _context5.stop();
             }
@@ -257,7 +272,11 @@
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return sg.updateProfile(userAddress, null);
+                return sg.updateProfile({
+                  address: userAddress,
+                  value: null,
+                  collection_name: collection_name
+                });
               case 2:
                 setActivated(false);
                 Toastify__default["default"]({

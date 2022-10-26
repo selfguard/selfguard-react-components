@@ -7,10 +7,11 @@ import ClipLoader from "react-spinners/ClipLoader";
 import SelfGuard from 'selfguard-client';
 import './index.css';
 import 'react-phone-input-2/lib/style.css'
+
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 let domain = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL : "http://localhost:8080"
 
-const Notifications = ({api_key, userAddress, collection_name, text, subject, html}) => {
+const Notifications = ({onDisabled, onActivated, api_key, userAddress, collection_name, text, subject, html}) => {
 
   function usePrevious(value) {
     const ref = useRef();
@@ -22,19 +23,10 @@ const Notifications = ({api_key, userAddress, collection_name, text, subject, ht
   const prevAccount = usePrevious(userAddress)
 
   let sg = new SelfGuard(api_key, null, null, domain);
-
-  /**
-   * It sends a text message to the phone number that is passed in as a parameter.
-   * @param key - The phone number to send the SMS to.
-   */
-   let sendSMS = async (key) => {
+  let sendSMS = async (key) => {
     await sg.sendSMS({address:key, collection_name, text});
   }
-  
-  /**
-   * It sends an email to the address specified in the key parameter
-   * @param key - the email address you want to send to
-   */
+
   let sendEmail = async (key) => {
     await sg.sendEmail({address:key, collection_name, subject, html});
   }
@@ -47,36 +39,37 @@ const Notifications = ({api_key, userAddress, collection_name, text, subject, ht
   let [requested, setRequested] = useState(false);
   let [activated, setActivated] = useState(false);
 
-  async function fetchData(){
-    let sg = new SelfGuard(api_key,null,null,domain);
-    //get email
-      try {
-        let profile = await sg.getProfile({address:userAddress,collection_name});
-        if(profile.email || profile.phone) setActivated(true);
-        else setActivated(false);
-        // setEmail(profile.email);
-        // setPhone(profile.phone);
-      }
-      catch(err){
-        console.log(err);
-        setActivated(false);
-        setEmail(null);
-        setPhone(null);
-      }
-      setRequested(true);
-  }
 
   /* This is a React hook that is called when the component is mounted. It is used to fetch the user's
   profile from the SelfGuard API. */
-  // useEffect(()=>{
-  //   fetchData();
-  // },[])
-
   useEffect(()=>{
+    async function fetchData(){
+      let sg = new SelfGuard(api_key,null,null,domain);
+      //get email
+        try {
+          let profile = await sg.getProfile({address:userAddress,collection_name});
+          if(profile.email || profile.phone) {
+            onActivated();
+            setActivated(true);
+          }
+          else {
+            onDisabled();
+            setActivated(false);
+          }
+        }
+        catch(err){
+          console.log(err);
+          onDisabled();
+          setActivated(false);
+          setEmail(null);
+          setPhone(null);
+        }
+        setRequested(true);
+    }
     if(prevAccount !== userAddress && userAddress){
       fetchData();
     }
-  },[userAddress,prevAccount])
+  },[userAddress,prevAccount,api_key, collection_name])
 
   /**
    * It takes the email, phone, and userAddress from the state and dispatches an action to update the
@@ -100,9 +93,13 @@ const Notifications = ({api_key, userAddress, collection_name, text, subject, ht
       await sg.updateProfile({address:userAddress,value:{email,phone},collection_name});
       let text = "Notifications Enabled";
 
-      if(email || phone) setActivated(true);
+      if(email || phone) {
+        onActivated();
+        setActivated(true);
+      }
       if(!email && !phone) {
         text = "Notifications Disabled";
+        onDisabled();
         setActivated(false);
       }
 
@@ -122,6 +119,7 @@ const Notifications = ({api_key, userAddress, collection_name, text, subject, ht
 
   let disableNotifications = async () => {
     await sg.updateProfile({address:userAddress,value:null, collection_name});
+    onDisabled();
     setActivated(false);
     Toastify({text:"Notifications Disabled",style: {background: "linear-gradient(to right, #198754, #198751"}}).showToast();
   }
@@ -155,17 +153,16 @@ const Notifications = ({api_key, userAddress, collection_name, text, subject, ht
                   <button type="button" className="btn-close" id='closeModal' data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div className="modal-body">
+                  <form onSubmit={updateProfile}>
+                    <div className='mb-3' style={{display:'flex',textAlign:'left',marginBottom:'20px'}}>
+                      <i style={{fontSize:'25px',marginRight:'10px'}} className='bi bi-envelope'></i>
+                      <input id='email' onChange={(e)=>{setEmail(e.target.value)}} placeholder="Email Address" className='form-control' type="email" style={{}} value={email ? email : ''} />
+                    </div>
 
-                  <div className='mb-3' style={{display:'flex',textAlign:'left',marginBottom:'20px'}}>
-                    <i style={{fontSize:'25px',marginRight:'10px'}} className='bi bi-envelope'></i>
-                    <input id='email' onChange={(e)=>{setEmail(e.target.value)}} placeholder="Email Address" className='form-control' type="email" style={{}} value={email ? email : ''} />
-                  </div>
-
-                  <div className='mb-3' style={{display:'flex',textAlign:'left',marginBottom:'20px'}}>
-                    <i style={{fontSize:'25px',marginRight:'10px'}} className='bi bi-telephone'></i>
-                    <Input specialLabel={null} country={'us'} id='phone' onChange={updatePhone} placeholder="Phone Number" type="tel" value={phone} />
-                  </div>
-
+                    <div className='mb-3' style={{display:'flex',textAlign:'left',marginBottom:'20px'}}>
+                      <i style={{fontSize:'25px',marginRight:'10px'}} className='bi bi-telephone'></i>
+                      <Input specialLabel={null} country={'us'} id='phone' onChange={updatePhone} placeholder="Phone Number" type="tel" value={phone} />
+                    </div>
                   <div style={{ display:'flex',justifyContent:'space-between'}}>
                     {!loading ? 
                     <button onClick={updateProfile} className='btn btn-dark'> Submit </button>
@@ -178,14 +175,14 @@ const Notifications = ({api_key, userAddress, collection_name, text, subject, ht
                         SelfGuard
                       </a>
                   </div>
-                  
+                  </form>
                 </div>
               </div>
           }
           </div>
         </div>
       </div>
-      <button onClick={!activated ? showModal : disableNotifications} className={`btn ${(activated) ? "btn-danger" : "btn-dark"} vertical`}> 
+      <button style={{marginTop:'10px'}} onClick={!activated ? showModal : disableNotifications} className={`btn ${(activated) ? "btn-danger" : "btn-dark"} vertical`}> 
         <i style={{fontSize:'20px',marginRight:'10px'}} className={`bi bi-${activated ? 'bell-slash' : 'bell'}`}></i>
         {activated ? "Disable Notifications" : "Enable Notifications"}
       </button>

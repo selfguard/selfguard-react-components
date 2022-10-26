@@ -31,7 +31,9 @@ n(css,{});
 var phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 var domain = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL : "http://localhost:8080";
 var Notifications = function Notifications(_ref) {
-  var api_key = _ref.api_key,
+  var onDisabled = _ref.onDisabled,
+    onActivated = _ref.onActivated,
+    api_key = _ref.api_key,
     userAddress = _ref.userAddress,
     collection_name = _ref.collection_name,
     text = _ref.text,
@@ -47,11 +49,6 @@ var Notifications = function Notifications(_ref) {
 
   var prevAccount = usePrevious(userAddress);
   var sg = new SelfGuard__default["default"](api_key, null, null, domain);
-
-  /**
-   * It sends a text message to the phone number that is passed in as a parameter.
-   * @param key - The phone number to send the SMS to.
-   */
   var sendSMS = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee(key) {
       return _regeneratorRuntime__default["default"].wrap(function _callee$(_context) {
@@ -75,11 +72,6 @@ var Notifications = function Notifications(_ref) {
       return _ref2.apply(this, arguments);
     };
   }();
-
-  /**
-   * It sends an email to the address specified in the key parameter
-   * @param key - the email address you want to send to
-   */
   var sendEmail = /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee2(key) {
       return _regeneratorRuntime__default["default"].wrap(function _callee2$(_context2) {
@@ -130,58 +122,61 @@ var Notifications = function Notifications(_ref) {
     _useState12 = _slicedToArray__default["default"](_useState11, 2),
     activated = _useState12[0],
     setActivated = _useState12[1];
-  function fetchData() {
-    return _fetchData.apply(this, arguments);
-  }
+
   /* This is a React hook that is called when the component is mounted. It is used to fetch the user's
   profile from the SelfGuard API. */
-  // useEffect(()=>{
-  //   fetchData();
-  // },[])
-  function _fetchData() {
-    _fetchData = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee4() {
-      var sg, profile;
-      return _regeneratorRuntime__default["default"].wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              sg = new SelfGuard__default["default"](api_key, null, null, domain); //get email
-              _context4.prev = 1;
-              _context4.next = 4;
-              return sg.getProfile({
-                address: userAddress,
-                collection_name: collection_name
-              });
-            case 4:
-              profile = _context4.sent;
-              if (profile.email || profile.phone) setActivated(true);else setActivated(false);
-              // setEmail(profile.email);
-              // setPhone(profile.phone);
-              _context4.next = 14;
-              break;
-            case 8:
-              _context4.prev = 8;
-              _context4.t0 = _context4["catch"](1);
-              console.log(_context4.t0);
-              setActivated(false);
-              setEmail(null);
-              setPhone(null);
-            case 14:
-              setRequested(true);
-            case 15:
-            case "end":
-              return _context4.stop();
-          }
-        }
-      }, _callee4, null, [[1, 8]]);
-    }));
-    return _fetchData.apply(this, arguments);
-  }
   React.useEffect(function () {
+    function fetchData() {
+      return _fetchData.apply(this, arguments);
+    }
+    function _fetchData() {
+      _fetchData = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee3() {
+        var sg, profile;
+        return _regeneratorRuntime__default["default"].wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                sg = new SelfGuard__default["default"](api_key, null, null, domain); //get email
+                _context3.prev = 1;
+                _context3.next = 4;
+                return sg.getProfile({
+                  address: userAddress,
+                  collection_name: collection_name
+                });
+              case 4:
+                profile = _context3.sent;
+                if (profile.email || profile.phone) {
+                  onActivated();
+                  setActivated(true);
+                } else {
+                  onDisabled();
+                  setActivated(false);
+                }
+                _context3.next = 15;
+                break;
+              case 8:
+                _context3.prev = 8;
+                _context3.t0 = _context3["catch"](1);
+                console.log(_context3.t0);
+                onDisabled();
+                setActivated(false);
+                setEmail(null);
+                setPhone(null);
+              case 15:
+                setRequested(true);
+              case 16:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, null, [[1, 8]]);
+      }));
+      return _fetchData.apply(this, arguments);
+    }
     if (prevAccount !== userAddress && userAddress) {
       fetchData();
     }
-  }, [userAddress, prevAccount]);
+  }, [userAddress, prevAccount, api_key, collection_name]);
 
   /**
    * It takes the email, phone, and userAddress from the state and dispatches an action to update the
@@ -238,9 +233,13 @@ var Notifications = function Notifications(_ref) {
               });
             case 14:
               _text = "Notifications Enabled";
-              if (email || phone) setActivated(true);
+              if (email || phone) {
+                onActivated();
+                setActivated(true);
+              }
               if (!email && !phone) {
                 _text = "Notifications Disabled";
+                onDisabled();
                 setActivated(false);
               }
               if (phone) sendSMS(userAddress);
@@ -273,18 +272,19 @@ var Notifications = function Notifications(_ref) {
     return _updateProfile.apply(this, arguments);
   }
   var disableNotifications = /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee3() {
-      return _regeneratorRuntime__default["default"].wrap(function _callee3$(_context3) {
+    var _ref4 = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee4() {
+      return _regeneratorRuntime__default["default"].wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
-              _context3.next = 2;
+              _context4.next = 2;
               return sg.updateProfile({
                 address: userAddress,
                 value: null,
                 collection_name: collection_name
               });
             case 2:
+              onDisabled();
               setActivated(false);
               Toastify__default["default"]({
                 text: "Notifications Disabled",
@@ -292,12 +292,12 @@ var Notifications = function Notifications(_ref) {
                   background: "linear-gradient(to right, #198754, #198751"
                 }
               }).showToast();
-            case 4:
+            case 5:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3);
+      }, _callee4);
     }));
     return function disableNotifications() {
       return _ref4.apply(this, arguments);
@@ -361,6 +361,8 @@ var Notifications = function Notifications(_ref) {
     "aria-label": "Close"
   })), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "modal-body"
+  }, /*#__PURE__*/React__default["default"].createElement("form", {
+    onSubmit: updateProfile
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "mb-3",
     style: {
@@ -432,7 +434,10 @@ var Notifications = function Notifications(_ref) {
     height: "15",
     className: "d-inline-block",
     alt: ""
-  }), "SelfGuard"))))))), /*#__PURE__*/React__default["default"].createElement("button", {
+  }), "SelfGuard")))))))), /*#__PURE__*/React__default["default"].createElement("button", {
+    style: {
+      marginTop: '10px'
+    },
     onClick: !activated ? showModal : disableNotifications,
     className: "btn ".concat(activated ? "btn-danger" : "btn-dark", " vertical")
   }, /*#__PURE__*/React__default["default"].createElement("i", {

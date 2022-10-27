@@ -11,7 +11,7 @@ import 'react-phone-input-2/lib/style.css'
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 let domain = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL : "http://localhost:8080"
 
-const Notifications = ({onDisabled, onActivated, api_key, userAddress, collection_name, text, subject, html}) => {
+const Notifications = ({onDisabled, onEnabled, api_key, userAddress, collection_name, sms_text, email_subject, email_body}) => {
 
   function usePrevious(value) {
     const ref = useRef();
@@ -24,11 +24,11 @@ const Notifications = ({onDisabled, onActivated, api_key, userAddress, collectio
 
   let sg = new SelfGuard(api_key, null, null, domain);
   let sendSMS = async (key) => {
-    await sg.sendSMS({address:key, collection_name, text});
+    await sg.sendSMS({address:key, collection_name, text:sms_text});
   }
 
   let sendEmail = async (key) => {
-    await sg.sendEmail({address:key, collection_name, subject, html});
+    await sg.sendEmail({address:key, collection_name, subject:email_subject, html:email_body});
   }
 
   /* Setting up the state of the component. */
@@ -49,7 +49,7 @@ const Notifications = ({onDisabled, onActivated, api_key, userAddress, collectio
         try {
           let profile = await sg.getProfile({address:userAddress,collection_name});
           if(profile.email || profile.phone) {
-            onActivated();
+            onEnabled();
             setActivated(true);
           }
           else {
@@ -94,7 +94,7 @@ const Notifications = ({onDisabled, onActivated, api_key, userAddress, collectio
       let text = "Notifications Enabled";
 
       if(email || phone) {
-        onActivated();
+        onEnabled();
         setActivated(true);
       }
       if(!email && !phone) {

@@ -32,13 +32,13 @@ var phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 var domain = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL : "http://localhost:8080";
 var Notifications = function Notifications(_ref) {
   var onDisabled = _ref.onDisabled,
-    onActivated = _ref.onActivated,
+    onEnabled = _ref.onEnabled,
     api_key = _ref.api_key,
     userAddress = _ref.userAddress,
     collection_name = _ref.collection_name,
-    text = _ref.text,
-    subject = _ref.subject,
-    html = _ref.html;
+    sms_text = _ref.sms_text,
+    email_subject = _ref.email_subject,
+    email_body = _ref.email_body;
   function usePrevious(value) {
     var ref = React.useRef();
     React.useEffect(function () {
@@ -59,7 +59,7 @@ var Notifications = function Notifications(_ref) {
               return sg.sendSMS({
                 address: key,
                 collection_name: collection_name,
-                text: text
+                text: sms_text
               });
             case 2:
             case "end":
@@ -82,8 +82,8 @@ var Notifications = function Notifications(_ref) {
               return sg.sendEmail({
                 address: key,
                 collection_name: collection_name,
-                subject: subject,
-                html: html
+                subject: email_subject,
+                html: email_body
               });
             case 2:
             case "end":
@@ -146,7 +146,7 @@ var Notifications = function Notifications(_ref) {
               case 4:
                 profile = _context3.sent;
                 if (profile.email || profile.phone) {
-                  onActivated();
+                  onEnabled();
                   setActivated(true);
                 } else {
                   onDisabled();
@@ -187,7 +187,7 @@ var Notifications = function Notifications(_ref) {
   }
   function _updateProfile() {
     _updateProfile = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee5() {
-      var _text;
+      var text;
       return _regeneratorRuntime__default["default"].wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
@@ -232,13 +232,13 @@ var Notifications = function Notifications(_ref) {
                 collection_name: collection_name
               });
             case 14:
-              _text = "Notifications Enabled";
+              text = "Notifications Enabled";
               if (email || phone) {
-                onActivated();
+                onEnabled();
                 setActivated(true);
               }
               if (!email && !phone) {
-                _text = "Notifications Disabled";
+                text = "Notifications Disabled";
                 onDisabled();
                 setActivated(false);
               }
@@ -246,7 +246,7 @@ var Notifications = function Notifications(_ref) {
               if (email) sendEmail(userAddress);
               setLoading(false);
               Toastify__default["default"]({
-                text: _text,
+                text: text,
                 style: {
                   background: "linear-gradient(to right, #198754, #198751"
                 }

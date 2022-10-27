@@ -108,6 +108,10 @@ var Notifications = function Notifications(_ref) {
     _useState12 = _slicedToArray(_useState11, 2),
     activated = _useState12[0],
     setActivated = _useState12[1];
+  var _useState13 = useState(true),
+    _useState14 = _slicedToArray(_useState13, 2),
+    checked = _useState14[0],
+    setChecked = _useState14[1];
 
   /* This is a React hook that is called when the component is mounted. It is used to fetch the user's
   profile from the SelfGuard API. */
@@ -178,12 +182,18 @@ var Notifications = function Notifications(_ref) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
+              if (checked) {
+                _context5.next = 2;
+                break;
+              }
+              return _context5.abrupt("return");
+            case 2:
               setLoading(true);
-              _context5.prev = 1;
+              _context5.prev = 3;
               if (phone === undefined || phone === null) phone = '';
               if (!email) email = '';
               if (!(!isValidEmail(email) && email !== "")) {
-                _context5.next = 8;
+                _context5.next = 10;
                 break;
               }
               Toastify({
@@ -194,9 +204,9 @@ var Notifications = function Notifications(_ref) {
               }).showToast();
               setLoading(false);
               return _context5.abrupt("return");
-            case 8:
+            case 10:
               if (!(phone !== "" && !phoneUtil.isValidNumber(phoneUtil.parse(phone, country)))) {
-                _context5.next = 12;
+                _context5.next = 14;
                 break;
               }
               Toastify({
@@ -207,8 +217,8 @@ var Notifications = function Notifications(_ref) {
               }).showToast();
               setLoading(false);
               return _context5.abrupt("return");
-            case 12:
-              _context5.next = 14;
+            case 14:
+              _context5.next = 16;
               return sg.updateProfile({
                 address: userAddress,
                 value: {
@@ -217,7 +227,7 @@ var Notifications = function Notifications(_ref) {
                 },
                 collection_name: collection_name
               });
-            case 14:
+            case 16:
               text = "Notifications Enabled";
               if (email || phone) {
                 onEnabled();
@@ -238,22 +248,22 @@ var Notifications = function Notifications(_ref) {
                 }
               }).showToast();
               $('#closeModal').click();
-              _context5.next = 28;
+              _context5.next = 30;
               break;
-            case 24:
-              _context5.prev = 24;
-              _context5.t0 = _context5["catch"](1);
+            case 26:
+              _context5.prev = 26;
+              _context5.t0 = _context5["catch"](3);
               console.log({
                 err: _context5.t0
               });
               // Toastify({text:err,style: {background: "linear-gradient(to right, #dc3545, #dc3541"}}).showToast();
               setLoading(false);
-            case 28:
+            case 30:
             case "end":
               return _context5.stop();
           }
         }
-      }, _callee5, null, [[1, 24]]);
+      }, _callee5, null, [[3, 26]]);
     }));
     return _updateProfile.apply(this, arguments);
   }
@@ -337,9 +347,9 @@ var Notifications = function Notifications(_ref) {
     }
   }, /*#__PURE__*/React.createElement("div", {
     className: "modal-header"
-  }, /*#__PURE__*/React.createElement("h5", {
+  }, /*#__PURE__*/React.createElement("h6", {
     className: "modal-title"
-  }, "Set Up Notifications"), /*#__PURE__*/React.createElement("button", {
+  }, "Subscribe to ", collection_name), /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: "btn-close",
     id: "closeModal",
@@ -394,12 +404,48 @@ var Notifications = function Notifications(_ref) {
     type: "tel",
     value: phone
   })), /*#__PURE__*/React.createElement("div", {
+    className: "mb-3",
+    style: {
+      display: 'flex',
+      textAlign: 'left',
+      marginBottom: '20px'
+    }
+  }, /*#__PURE__*/React.createElement("input", {
+    style: {
+      width: '20px'
+    },
+    className: "form-check-input",
+    type: "checkbox",
+    value: checked,
+    checked: checked,
+    onClick: function onClick() {
+      setChecked(!checked);
+    },
+    id: "flexCheckDefault"
+  }), /*#__PURE__*/React.createElement("label", {
+    className: "form-check-label",
+    "for": "flexCheckDefault",
+    style: {
+      marginLeft: '10px',
+      fontSize: '12px',
+      marginTop: '3px'
+    }
+  }, "I consent to receiving notifications from ", collection_name, " through email and text.")), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement("p", {
+    className: "mb-3",
+    style: {
+      fontSize: '10px',
+      display: 'flex',
+      textAlign: 'left',
+      marginBottom: '20px'
+    }
+  }, "Your email and phone number are encrypted such that ", collection_name, " will not be able to view them."), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
       justifyContent: 'space-between'
     }
   }, !loading ? /*#__PURE__*/React.createElement("button", {
     onClick: updateProfile,
+    disabled: !checked,
     className: "btn btn-dark"
   }, " Submit ") : /*#__PURE__*/React.createElement(ClipLoader, null), /*#__PURE__*/React.createElement("a", {
     target: "_blank",
@@ -420,7 +466,26 @@ var Notifications = function Notifications(_ref) {
     height: "15",
     className: "d-inline-block",
     alt: ""
-  }), "SelfGuard")))))))), /*#__PURE__*/React.createElement("button", {
+  }), "SelfGuard"))), /*#__PURE__*/React.createElement("div", {
+    className: "text-center"
+  }, /*#__PURE__*/React.createElement("p", {
+    className: "",
+    style: {
+      fontSize: '10px',
+      display: 'flex',
+      textAlign: 'left',
+      marginTop: '10px',
+      marginBottom: 0
+    }
+  }, "Want to setup your own notification group? ", /*#__PURE__*/React.createElement("a", {
+    style: {
+      color: 'black',
+      marginLeft: '2px'
+    },
+    target: "_blank",
+    rel: "noopener noreferrer",
+    href: "https://getnotified.xyz"
+  }, " Click here to get started.")))))))), /*#__PURE__*/React.createElement("button", {
     style: {
       marginTop: '10px'
     },

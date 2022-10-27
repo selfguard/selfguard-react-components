@@ -38,6 +38,7 @@ const Notifications = ({onDisabled, onEnabled, api_key, userAddress, collection_
   let [country, setCountry] = useState(null);
   let [requested, setRequested] = useState(false);
   let [activated, setActivated] = useState(false);
+  let [checked, setChecked] = useState(true);
 
 
   /* This is a React hook that is called when the component is mounted. It is used to fetch the user's
@@ -76,6 +77,7 @@ const Notifications = ({onDisabled, onEnabled, api_key, userAddress, collection_
    * profile
    */
    async function updateProfile(){
+    if(!checked) return;
     setLoading(true);
     try {
       if(phone === undefined || phone === null) phone = '';
@@ -149,7 +151,7 @@ const Notifications = ({onDisabled, onEnabled, api_key, userAddress, collection_
           {requested &&
               <div className="modal-content" style={{width:'400px'}}>
                 <div className="modal-header">
-                  <h5 className="modal-title">Set Up Notifications</h5>
+                  <h6 className="modal-title">Subscribe to {collection_name}</h6>
                   <button type="button" className="btn-close" id='closeModal' data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div className="modal-body">
@@ -163,9 +165,21 @@ const Notifications = ({onDisabled, onEnabled, api_key, userAddress, collection_
                       <i style={{fontSize:'25px',marginRight:'10px'}} className='bi bi-telephone'></i>
                       <Input specialLabel={null} country={'us'} id='phone' onChange={updatePhone} placeholder="Phone Number" type="tel" value={phone} />
                     </div>
+
+                    <div className='mb-3' style={{display:'flex',textAlign:'left',marginBottom:'20px'}}>
+                      <input style={{width:'20px'}} className="form-check-input" type="checkbox" value={checked} checked={checked} onClick={()=>{setChecked(!checked)}} id="flexCheckDefault"/>
+                      <label className="form-check-label" for="flexCheckDefault" style={{marginLeft:'10px',fontSize:'12px',marginTop:'3px'}}>
+                        I consent to receiving notifications from {collection_name} through email and text.
+                      </label>
+                    </div>
+                    <hr/>
+                    <p className='mb-3' style={{fontSize:'10px',display:'flex',textAlign:'left',marginBottom:'20px'}}>
+                      Your email and phone number are encrypted such that {collection_name} will not be able to view them.
+                    </p>
+
                   <div style={{ display:'flex',justifyContent:'space-between'}}>
                     {!loading ? 
-                    <button onClick={updateProfile} className='btn btn-dark'> Submit </button>
+                    <button onClick={updateProfile} disabled={!checked} className='btn btn-dark'> Submit </button>
                     :
                     <ClipLoader/>
                     }
@@ -176,6 +190,11 @@ const Notifications = ({onDisabled, onEnabled, api_key, userAddress, collection_
                       </a>
                   </div>
                   </form>
+                  <div className='text-center'>
+                    <p className='' style={{fontSize:'10px',display:'flex',textAlign:'left',marginTop:'10px',marginBottom:0}}>
+                      Want to setup your own notification group? <a style={{color:'black',marginLeft:'2px'}} target="_blank" rel="noopener noreferrer" href='https://getnotified.xyz'> Click here to get started.</a>
+                    </p>
+                  </div>
                 </div>
               </div>
           }

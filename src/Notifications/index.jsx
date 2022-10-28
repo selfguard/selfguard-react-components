@@ -24,11 +24,11 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
 
   let sg = new SelfGuard(api_key, null, null, domain);
   let sendSMS = async (key) => {
-    await sg.sendSMS({address:key, collection_name, text:sms_text});
+    await sg.sendSMS({user_address:key, collection_name, text:sms_text});
   }
 
   let sendEmail = async (key) => {
-    await sg.sendEmail({address:key, collection_name, subject:email_subject, body:email_body});
+    await sg.sendEmail({user_address:key, collection_name, subject:email_subject, body:email_body});
   }
 
   /* Setting up the state of the component. */
@@ -48,7 +48,7 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
       let sg = new SelfGuard(api_key,null,null,domain);
       //get email
         try {
-          let profile = await sg.getProfile({address:user_address,collection_name});
+          let profile = await sg.getProfile({user_address,collection_name});
           if(profile.email || profile.phone) {
             onEnabled();
             setActivated(true);
@@ -92,7 +92,7 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
         setLoading(false);
         return;
       }
-      await sg.updateProfile({address:user_address,value:{email,phone},collection_name});
+      await sg.updateProfile({user_address,value:{email,phone},collection_name});
       let text = "Notifications Enabled";
 
       if(email || phone) {
@@ -120,7 +120,7 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
   }
 
   let disableNotifications = async () => {
-    await sg.updateProfile({address:user_address,value:null, collection_name});
+    await sg.updateProfile({user_address,value:null, collection_name});
     onDisabled();
     setActivated(false);
     Toastify({text:"Notifications Disabled",style: {background: "linear-gradient(to right, #198754, #198751"}}).showToast();

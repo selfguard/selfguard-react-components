@@ -50,7 +50,7 @@
               case 0:
                 _context.next = 2;
                 return sg.sendSMS({
-                  address: key,
+                  user_address: key,
                   collection_name: collection_name,
                   text: sms_text
                 });
@@ -73,7 +73,7 @@
               case 0:
                 _context2.next = 2;
                 return sg.sendEmail({
-                  address: key,
+                  user_address: key,
                   collection_name: collection_name,
                   subject: email_subject,
                   body: email_body
@@ -137,7 +137,7 @@
                   _context3.prev = 1;
                   _context3.next = 4;
                   return sg.getProfile({
-                    address: user_address,
+                    user_address: user_address,
                     collection_name: collection_name
                   });
                 case 4:
@@ -227,7 +227,7 @@
               case 14:
                 _context5.next = 16;
                 return sg.updateProfile({
-                  address: user_address,
+                  user_address: user_address,
                   value: {
                     email: email,
                     phone: phone
@@ -282,7 +282,7 @@
               case 0:
                 _context4.next = 2;
                 return sg.updateProfile({
-                  address: user_address,
+                  user_address: user_address,
                   value: null,
                   collection_name: collection_name
                 });

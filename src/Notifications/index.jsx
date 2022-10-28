@@ -11,7 +11,7 @@ import 'react-phone-input-2/lib/style.css'
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 let domain = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL : "http://localhost:8080"
 
-const Notifications = ({onDisabled, onEnabled, api_key, userAddress, collection_name, sms_text, email_subject, email_body}) => {
+const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection_name, sms_text, email_subject, email_body}) => {
 
   function usePrevious(value) {
     const ref = useRef();
@@ -20,7 +20,7 @@ const Notifications = ({onDisabled, onEnabled, api_key, userAddress, collection_
     },[value]); //this code will run when the value of 'value' changes
     return ref.current; //in the end, return the current ref value.
   }
-  const prevAccount = usePrevious(userAddress)
+  const prevAccount = usePrevious(user_address)
 
   let sg = new SelfGuard(api_key, null, null, domain);
   let sendSMS = async (key) => {
@@ -28,7 +28,7 @@ const Notifications = ({onDisabled, onEnabled, api_key, userAddress, collection_
   }
 
   let sendEmail = async (key) => {
-    await sg.sendEmail({address:key, collection_name, subject:email_subject, html:email_body});
+    await sg.sendEmail({address:key, collection_name, subject:email_subject, body:email_body});
   }
 
   /* Setting up the state of the component. */
@@ -48,7 +48,7 @@ const Notifications = ({onDisabled, onEnabled, api_key, userAddress, collection_
       let sg = new SelfGuard(api_key,null,null,domain);
       //get email
         try {
-          let profile = await sg.getProfile({address:userAddress,collection_name});
+          let profile = await sg.getProfile({address:user_address,collection_name});
           if(profile.email || profile.phone) {
             onEnabled();
             setActivated(true);
@@ -67,13 +67,13 @@ const Notifications = ({onDisabled, onEnabled, api_key, userAddress, collection_
         }
         setRequested(true);
     }
-    if(prevAccount !== userAddress && userAddress){
+    if(prevAccount !== user_address && user_address){
       fetchData();
     }
-  },[userAddress,prevAccount,api_key, collection_name])
+  },[user_address,prevAccount,api_key, collection_name])
 
   /**
-   * It takes the email, phone, and userAddress from the state and dispatches an action to update the
+   * It takes the email, phone, and user_address from the state and dispatches an action to update the
    * profile
    */
    async function updateProfile(){
@@ -92,7 +92,7 @@ const Notifications = ({onDisabled, onEnabled, api_key, userAddress, collection_
         setLoading(false);
         return;
       }
-      await sg.updateProfile({address:userAddress,value:{email,phone},collection_name});
+      await sg.updateProfile({address:user_address,value:{email,phone},collection_name});
       let text = "Notifications Enabled";
 
       if(email || phone) {
@@ -105,8 +105,8 @@ const Notifications = ({onDisabled, onEnabled, api_key, userAddress, collection_
         setActivated(false);
       }
 
-      if(phone) sendSMS(userAddress);
-      if(email) sendEmail(userAddress);
+      if(phone) sendSMS(user_address);
+      if(email) sendEmail(user_address);
 
       setLoading(false);
       Toastify({text,style: {background: "linear-gradient(to right, #198754, #198751"}}).showToast();
@@ -120,7 +120,7 @@ const Notifications = ({onDisabled, onEnabled, api_key, userAddress, collection_
   }
 
   let disableNotifications = async () => {
-    await sg.updateProfile({address:userAddress,value:null, collection_name});
+    await sg.updateProfile({address:user_address,value:null, collection_name});
     onDisabled();
     setActivated(false);
     Toastify({text:"Notifications Disabled",style: {background: "linear-gradient(to right, #198754, #198751"}}).showToast();

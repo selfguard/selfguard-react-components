@@ -20,7 +20,7 @@ var Notifications = function Notifications(_ref) {
   var onDisabled = _ref.onDisabled,
     onEnabled = _ref.onEnabled,
     api_key = _ref.api_key,
-    userAddress = _ref.userAddress,
+    user_address = _ref.user_address,
     collection_name = _ref.collection_name,
     sms_text = _ref.sms_text,
     email_subject = _ref.email_subject,
@@ -33,7 +33,7 @@ var Notifications = function Notifications(_ref) {
     return ref.current; //in the end, return the current ref value.
   }
 
-  var prevAccount = usePrevious(userAddress);
+  var prevAccount = usePrevious(user_address);
   var sg = new SelfGuard(api_key, null, null, domain);
   var sendSMS = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee(key) {
@@ -69,7 +69,7 @@ var Notifications = function Notifications(_ref) {
                 address: key,
                 collection_name: collection_name,
                 subject: email_subject,
-                html: email_body
+                body: email_body
               });
             case 2:
             case "end":
@@ -130,7 +130,7 @@ var Notifications = function Notifications(_ref) {
                 _context3.prev = 1;
                 _context3.next = 4;
                 return sg.getProfile({
-                  address: userAddress,
+                  address: user_address,
                   collection_name: collection_name
                 });
               case 4:
@@ -163,13 +163,13 @@ var Notifications = function Notifications(_ref) {
       }));
       return _fetchData.apply(this, arguments);
     }
-    if (prevAccount !== userAddress && userAddress) {
+    if (prevAccount !== user_address && user_address) {
       fetchData();
     }
-  }, [userAddress, prevAccount, api_key, collection_name]);
+  }, [user_address, prevAccount, api_key, collection_name]);
 
   /**
-   * It takes the email, phone, and userAddress from the state and dispatches an action to update the
+   * It takes the email, phone, and user_address from the state and dispatches an action to update the
    * profile
    */
   function updateProfile() {
@@ -220,7 +220,7 @@ var Notifications = function Notifications(_ref) {
             case 14:
               _context5.next = 16;
               return sg.updateProfile({
-                address: userAddress,
+                address: user_address,
                 value: {
                   email: email,
                   phone: phone
@@ -238,8 +238,8 @@ var Notifications = function Notifications(_ref) {
                 onDisabled();
                 setActivated(false);
               }
-              if (phone) sendSMS(userAddress);
-              if (email) sendEmail(userAddress);
+              if (phone) sendSMS(user_address);
+              if (email) sendEmail(user_address);
               setLoading(false);
               Toastify({
                 text: text,
@@ -275,7 +275,7 @@ var Notifications = function Notifications(_ref) {
             case 0:
               _context4.next = 2;
               return sg.updateProfile({
-                address: userAddress,
+                address: user_address,
                 value: null,
                 collection_name: collection_name
               });

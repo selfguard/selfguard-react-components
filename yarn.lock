@@ -6067,10 +6067,10 @@ scrypt-js@3.0.1:
   resolved "https://registry.yarnpkg.com/scrypt-js/-/scrypt-js-3.0.1.tgz#d314a57c2aef69d1ad98a138a21fe9eafa9ee312"
   integrity sha512-cdwTTnqPu0Hyvf5in5asVdZocVDTNRmR7XEcJuIzMjJeSHybHl7vpB66AzwTaIg6CLSbtjcxc8fqcySfnTkccA==
 
-selfguard-client@1.1.54:
-  version "1.1.54"
-  resolved "https://registry.yarnpkg.com/selfguard-client/-/selfguard-client-1.1.54.tgz#8342324b46e5c88debfe02339738e2852371579a"
-  integrity sha512-+uEE2P4bEseO93Y6i9X7eI/ejP4WJpKFLSSVg0uARF5QsjRVnIeGH/FcqJKfXAQZTT3ioHP4FtXPrW8MrV6HbQ==
+selfguard-client@1.1.57:
+  version "1.1.57"
+  resolved "https://registry.yarnpkg.com/selfguard-client/-/selfguard-client-1.1.57.tgz#37066bc9748f91168d046985012c909a03545954"
+  integrity sha512-WQ1ucatSi2ZVO0YRJLdmGwOgTKOAZkd2Y13sJCe9rwwHdvo1xBlfpPC2J/6y4Oath4VINcwcmg3csVmgbdXp7g==
   dependencies:
     "@lit-protocol/sdk-browser" "^1.1.228"
     "@metamask/eth-sig-util" "^5.0.0"

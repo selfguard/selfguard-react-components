@@ -426,7 +426,8 @@ var Notifications = function Notifications(_ref) {
     }
   }, /*#__PURE__*/React__default["default"].createElement("input", {
     style: {
-      width: '20px'
+      minWidth: '15px',
+      minHeight: '15px'
     },
     className: "form-check-input",
     type: "checkbox",
@@ -441,10 +442,18 @@ var Notifications = function Notifications(_ref) {
     "for": "flexCheckDefault",
     style: {
       marginLeft: '10px',
-      fontSize: '12px',
+      fontSize: '10px',
       marginTop: '3px'
     }
-  }, "I consent to receiving notifications from ", collection_name, " through email and text.")), /*#__PURE__*/React__default["default"].createElement("hr", null), /*#__PURE__*/React__default["default"].createElement("p", {
+  }, "I consent to receiving notifications from ", collection_name, " through email and text, and I acknowledge that I have read and understood the ", ' ', /*#__PURE__*/React__default["default"].createElement("a", {
+    target: "_blank",
+    rel: "noopener noreferrer",
+    href: "https://app.termly.io/document/terms-of-use-for-saas/41431ed0-b5e0-40ae-86b1-7d3574dbc7a9"
+  }, "Terms & Conditions"), ' ', " and ", ' ', /*#__PURE__*/React__default["default"].createElement("a", {
+    target: "_blank",
+    rel: "noopener noreferrer",
+    href: "https://app.termly.io/document/privacy-policy/5f00313b-9c18-49c4-84c1-13efea1cadd9"
+  }, "Privacy Policy."))), /*#__PURE__*/React__default["default"].createElement("hr", null), /*#__PURE__*/React__default["default"].createElement("p", {
     className: "mb-3",
     style: {
       fontSize: '10px',

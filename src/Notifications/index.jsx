@@ -167,9 +167,12 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
                     </div>
 
                     <div className='mb-3' style={{display:'flex',textAlign:'left',marginBottom:'20px'}}>
-                      <input style={{width:'20px'}} className="form-check-input" type="checkbox" value={checked} checked={checked} onClick={()=>{setChecked(!checked)}} id="flexCheckDefault"/>
-                      <label className="form-check-label" for="flexCheckDefault" style={{marginLeft:'10px',fontSize:'12px',marginTop:'3px'}}>
-                        I consent to receiving notifications from {collection_name} through email and text.
+                      <input style={{minWidth:'15px',minHeight:'15px'}} className="form-check-input" type="checkbox" value={checked} checked={checked} onClick={()=>{setChecked(!checked)}} id="flexCheckDefault"/>
+                      <label className="form-check-label" for="flexCheckDefault" style={{marginLeft:'10px',fontSize:'10px',marginTop:'3px'}}>
+                        I consent to receiving notifications from {collection_name} through email and text, 
+                        and I acknowledge that I have read and understood the {' '}
+                        <a target="_blank" rel="noopener noreferrer" href='https://app.termly.io/document/terms-of-use-for-saas/41431ed0-b5e0-40ae-86b1-7d3574dbc7a9'>Terms & Conditions</a> 
+                        {' '} and {' '}<a target="_blank" rel="noopener noreferrer" href='https://app.termly.io/document/privacy-policy/5f00313b-9c18-49c4-84c1-13efea1cadd9'>Privacy Policy.</a>
                       </label>
                     </div>
                     <hr/>

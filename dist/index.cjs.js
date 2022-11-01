@@ -48,7 +48,7 @@ var Notifications = function Notifications(_ref) {
   }
 
   var prevAccount = usePrevious(user_address);
-  var sg = new SelfGuard__default["default"](api_key, null, null, domain);
+  var sg = new SelfGuard__default["default"](api_key, null, null, null, domain);
   var sendSMS = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee(key) {
       return _regeneratorRuntime__default["default"].wrap(function _callee$(_context) {
@@ -140,7 +140,7 @@ var Notifications = function Notifications(_ref) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                sg = new SelfGuard__default["default"](api_key, null, null, domain); //get email
+                sg = new SelfGuard__default["default"](api_key, null, null, null, domain); //get email
                 _context3.prev = 1;
                 _context3.next = 4;
                 return sg.getProfile({
@@ -433,6 +433,7 @@ var Notifications = function Notifications(_ref) {
     type: "checkbox",
     value: checked,
     checked: checked,
+    onChange: function onChange() {},
     onClick: function onClick() {
       setChecked(!checked);
     },

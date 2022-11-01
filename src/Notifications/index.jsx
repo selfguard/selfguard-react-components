@@ -22,7 +22,7 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
   }
   const prevAccount = usePrevious(user_address)
 
-  let sg = new SelfGuard(api_key, null, null, domain);
+  let sg = new SelfGuard(api_key, null, null, null, domain);
   let sendSMS = async (key) => {
     await sg.sendSMS({user_address:key, collection_name, text:sms_text});
   }
@@ -45,7 +45,7 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
   profile from the SelfGuard API. */
   useEffect(()=>{
     async function fetchData(){
-      let sg = new SelfGuard(api_key,null,null,domain);
+      let sg = new SelfGuard(api_key,null,null,null,domain);
       //get email
         try {
           let profile = await sg.getProfile({user_address,collection_name});
@@ -167,7 +167,7 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
                     </div>
 
                     <div className='mb-3' style={{display:'flex',textAlign:'left',marginBottom:'20px'}}>
-                      <input style={{minWidth:'15px',minHeight:'15px'}} className="form-check-input" type="checkbox" value={checked} checked={checked} onClick={()=>{setChecked(!checked)}} id="flexCheckDefault"/>
+                      <input style={{minWidth:'15px',minHeight:'15px'}} className="form-check-input" type="checkbox" value={checked} checked={checked} onChange={()=>{}} onClick={()=>{setChecked(!checked)}} id="flexCheckDefault"/>
                       <label className="form-check-label" for="flexCheckDefault" style={{marginLeft:'10px',fontSize:'10px',marginTop:'3px'}}>
                         I consent to receiving notifications from {collection_name} through email and text, 
                         and I acknowledge that I have read and understood the {' '}

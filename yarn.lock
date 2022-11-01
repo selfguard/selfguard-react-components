@@ -6385,10 +6385,10 @@ secp256k1@4.0.3, secp256k1@^4.0.1:
     node-addon-api "^2.0.0"
     node-gyp-build "^4.2.0"
 
-selfguard-client@1.1.60:
-  version "1.1.60"
-  resolved "https://registry.yarnpkg.com/selfguard-client/-/selfguard-client-1.1.60.tgz#7e08cd117d8e12062ec07b81c48054aefb7ad679"
-  integrity sha512-Gy/dcbU06Fwu3vfd4CyDXaBcq8KCiMKzk3GPbhfn04ypfqdwiJcDyDl2GtPzm4lMhb95i6fxriZgCSeAVwyIqQ==
+selfguard-client@1.1.61:
+  version "1.1.61"
+  resolved "https://registry.yarnpkg.com/selfguard-client/-/selfguard-client-1.1.61.tgz#096d142cc1e94ec856ff78286edd6b0ea84025ae"
+  integrity sha512-3dITXoS8D6q0HD7mVzfpEmUIdmCz0Ly/Fydzg1IU/9cs6aN3keO+LErEX68ROcIa0s+uYZrRtqF9PjIUmuuzSg==
   dependencies:
     "@lit-protocol/sdk-browser" "^1.1.228"
     "@metamask/eth-sig-util" "^5.0.0"

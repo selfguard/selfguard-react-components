@@ -448,7 +448,7 @@ var Notifications = function Notifications(_ref) {
       textAlign: 'left',
       marginBottom: '20px'
     }
-  }, "Your email and phone number are encrypted such that ", collection_name, " will not be able to view them."), /*#__PURE__*/React.createElement("div", {
+  }, "Your email and phone number are encrypted such that ", collection_name, " will not be able to view them. You can always disable notifications using this widget."), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
       justifyContent: 'space-between'

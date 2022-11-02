@@ -177,7 +177,7 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
                     </div>
                     <hr/>
                     <p className='mb-3' style={{fontSize:'10px',display:'flex',textAlign:'left',marginBottom:'20px'}}>
-                      Your email and phone number are encrypted such that {collection_name} will not be able to view them.
+                      Your email and phone number are encrypted such that {collection_name} will not be able to view them. You can always disable notifications using this widget.
                     </p>
 
                   <div style={{ display:'flex',justifyContent:'space-between'}}>

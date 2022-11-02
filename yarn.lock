@@ -5994,9 +5994,9 @@ queue-microtask@^1.2.2:
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
-"quick-encrypt@https://github.com/joshuaquek/QuickEncrypt.git":
+"quick-encrypt@git+https://github.com/joshuaquek/QuickEncrypt.git":
   version "1.0.8"
-  resolved "https://github.com/joshuaquek/QuickEncrypt.git#212dcf505600ec26393678be9dbeadfc7bb70f6a"
+  resolved "git+https://github.com/joshuaquek/QuickEncrypt.git#212dcf505600ec26393678be9dbeadfc7bb70f6a"
   dependencies:
     keypair "1.0.4"
 
@@ -6385,8 +6385,10 @@ secp256k1@4.0.3, secp256k1@^4.0.1:
     node-addon-api "^2.0.0"
     node-gyp-build "^4.2.0"
 
-selfguard-client@../selfguard:
-  version "1.1.61"
+selfguard-client@1.1.62:
+  version "1.1.62"
+  resolved "https://registry.yarnpkg.com/selfguard-client/-/selfguard-client-1.1.62.tgz#2daece0bb02454b9ec445e6ac426bb309f41269c"
+  integrity sha512-3u3sngySaI/Tp4uVwxyF7XdXXUEDd2zJHKifpzZ68ZEWTk3gDVlZtut5hLfZ+gUL2E2VMhrpdjCj4sK40QOpjA==
   dependencies:
     "@lit-protocol/sdk-browser" "^1.1.228"
     "@metamask/eth-sig-util" "^5.0.0"

@@ -1,13 +1,13 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@babel/runtime/helpers/slicedToArray'), require('@babel/runtime/helpers/asyncToGenerator'), require('@babel/runtime/regenerator'), require('react'), require('react-phone-input-2'), require('toastify-js'), require('jquery'), require('react-spinners/ClipLoader'), require('selfguard-client'), require('react-phone-input-2/lib/style.css')) :
-  typeof define === 'function' && define.amd ? define(['@babel/runtime/helpers/slicedToArray', '@babel/runtime/helpers/asyncToGenerator', '@babel/runtime/regenerator', 'react', 'react-phone-input-2', 'toastify-js', 'jquery', 'react-spinners/ClipLoader', 'selfguard-client', 'react-phone-input-2/lib/style.css'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global["react-awesome-buttons"] = factory(global._slicedToArray, global._asyncToGenerator, global._regeneratorRuntime, global.React, global.Input, global.Toastify, global.$, global.ClipLoader, global.SelfGuard));
-})(this, (function (_slicedToArray, _asyncToGenerator, _regeneratorRuntime, React, Input, Toastify, $, ClipLoader, SelfGuard) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@babel/runtime/helpers/asyncToGenerator'), require('@babel/runtime/helpers/slicedToArray'), require('@babel/runtime/regenerator'), require('react'), require('react-phone-input-2'), require('toastify-js'), require('jquery'), require('react-spinners/ClipLoader'), require('selfguard-client'), require('react-phone-input-2/lib/style.css')) :
+  typeof define === 'function' && define.amd ? define(['@babel/runtime/helpers/asyncToGenerator', '@babel/runtime/helpers/slicedToArray', '@babel/runtime/regenerator', 'react', 'react-phone-input-2', 'toastify-js', 'jquery', 'react-spinners/ClipLoader', 'selfguard-client', 'react-phone-input-2/lib/style.css'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global["react-awesome-buttons"] = factory(global._asyncToGenerator, global._slicedToArray, global._regeneratorRuntime, global.React, global.Input, global.Toastify, global.$, global.ClipLoader, global.SelfGuard));
+})(this, (function (_asyncToGenerator, _slicedToArray, _regeneratorRuntime, React, Input, Toastify, $, ClipLoader, SelfGuard) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
-  var _slicedToArray__default = /*#__PURE__*/_interopDefaultLegacy(_slicedToArray);
   var _asyncToGenerator__default = /*#__PURE__*/_interopDefaultLegacy(_asyncToGenerator);
+  var _slicedToArray__default = /*#__PURE__*/_interopDefaultLegacy(_slicedToArray);
   var _regeneratorRuntime__default = /*#__PURE__*/_interopDefaultLegacy(_regeneratorRuntime);
   var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
   var Input__default = /*#__PURE__*/_interopDefaultLegacy(Input);
@@ -28,10 +28,8 @@
       onEnabled = _ref.onEnabled,
       api_key = _ref.api_key,
       user_address = _ref.user_address,
-      collection_name = _ref.collection_name,
-      sms_text = _ref.sms_text,
-      email_subject = _ref.email_subject,
-      email_body = _ref.email_body;
+      collection_name = _ref.collection_name;
+    var sg = new SelfGuard__default["default"](api_key, null, null, null, domain);
     function usePrevious(value) {
       var ref = React.useRef();
       React.useEffect(function () {
@@ -41,54 +39,6 @@
     }
 
     var prevAccount = usePrevious(user_address);
-    var sg = new SelfGuard__default["default"](api_key, null, null, null, domain);
-    var sendSMS = /*#__PURE__*/function () {
-      var _ref2 = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee(key) {
-        return _regeneratorRuntime__default["default"].wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return sg.sendSMS({
-                  user_address: key,
-                  collection_name: collection_name,
-                  text: sms_text
-                });
-              case 2:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-      return function sendSMS(_x) {
-        return _ref2.apply(this, arguments);
-      };
-    }();
-    var sendEmail = /*#__PURE__*/function () {
-      var _ref3 = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee2(key) {
-        return _regeneratorRuntime__default["default"].wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.next = 2;
-                return sg.sendEmail({
-                  user_address: key,
-                  collection_name: collection_name,
-                  subject: email_subject,
-                  body: email_body
-                });
-              case 2:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }));
-      return function sendEmail(_x2) {
-        return _ref3.apply(this, arguments);
-      };
-    }();
 
     /* Setting up the state of the component. */
     var _useState = React.useState(false),
@@ -127,21 +77,20 @@
         return _fetchData.apply(this, arguments);
       }
       function _fetchData() {
-        _fetchData = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee3() {
-          var sg, profile;
-          return _regeneratorRuntime__default["default"].wrap(function _callee3$(_context3) {
+        _fetchData = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee() {
+          var profile;
+          return _regeneratorRuntime__default["default"].wrap(function _callee$(_context) {
             while (1) {
-              switch (_context3.prev = _context3.next) {
+              switch (_context.prev = _context.next) {
                 case 0:
-                  sg = new SelfGuard__default["default"](api_key, null, null, null, domain); //get email
-                  _context3.prev = 1;
-                  _context3.next = 4;
+                  _context.prev = 0;
+                  _context.next = 3;
                   return sg.getProfile({
                     user_address: user_address,
                     collection_name: collection_name
                   });
-                case 4:
-                  profile = _context3.sent;
+                case 3:
+                  profile = _context.sent;
                   if (profile.email || profile.phone) {
                     onEnabled();
                     setActivated(true);
@@ -149,24 +98,24 @@
                     onDisabled();
                     setActivated(false);
                   }
-                  _context3.next = 15;
+                  _context.next = 14;
                   break;
-                case 8:
-                  _context3.prev = 8;
-                  _context3.t0 = _context3["catch"](1);
-                  console.log(_context3.t0);
+                case 7:
+                  _context.prev = 7;
+                  _context.t0 = _context["catch"](0);
+                  console.log(_context.t0);
                   onDisabled();
                   setActivated(false);
                   setEmail(null);
                   setPhone(null);
-                case 15:
+                case 14:
                   setRequested(true);
-                case 16:
+                case 15:
                 case "end":
-                  return _context3.stop();
+                  return _context.stop();
               }
             }
-          }, _callee3, null, [[1, 8]]);
+          }, _callee, null, [[0, 7]]);
         }));
         return _fetchData.apply(this, arguments);
       }
@@ -179,28 +128,29 @@
      * It takes the email, phone, and user_address from the state and dispatches an action to update the
      * profile
      */
-    function updateProfile() {
+    function updateProfile(_x) {
       return _updateProfile.apply(this, arguments);
     }
     function _updateProfile() {
-      _updateProfile = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee5() {
+      _updateProfile = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee3(e) {
         var text;
-        return _regeneratorRuntime__default["default"].wrap(function _callee5$(_context5) {
+        return _regeneratorRuntime__default["default"].wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
+                if (e && e.preventDefault) e.preventDefault();
                 if (checked) {
-                  _context5.next = 2;
+                  _context3.next = 3;
                   break;
                 }
-                return _context5.abrupt("return");
-              case 2:
+                return _context3.abrupt("return");
+              case 3:
                 setLoading(true);
-                _context5.prev = 3;
+                _context3.prev = 4;
                 if (phone === undefined || phone === null) phone = '';
                 if (!email) email = '';
                 if (!(!isValidEmail(email) && email !== "")) {
-                  _context5.next = 10;
+                  _context3.next = 11;
                   break;
                 }
                 Toastify__default["default"]({
@@ -210,10 +160,10 @@
                   }
                 }).showToast();
                 setLoading(false);
-                return _context5.abrupt("return");
-              case 10:
+                return _context3.abrupt("return");
+              case 11:
                 if (!(phone !== "" && !phoneUtil.isValidNumber(phoneUtil.parse(phone, country)))) {
-                  _context5.next = 14;
+                  _context3.next = 15;
                   break;
                 }
                 Toastify__default["default"]({
@@ -223,9 +173,9 @@
                   }
                 }).showToast();
                 setLoading(false);
-                return _context5.abrupt("return");
-              case 14:
-                _context5.next = 16;
+                return _context3.abrupt("return");
+              case 15:
+                _context3.next = 17;
                 return sg.updateProfile({
                   user_address: user_address,
                   value: {
@@ -234,7 +184,7 @@
                   },
                   collection_name: collection_name
                 });
-              case 16:
+              case 17:
                 text = "Notifications Enabled";
                 if (email || phone) {
                   onEnabled();
@@ -245,8 +195,6 @@
                   onDisabled();
                   setActivated(false);
                 }
-                if (phone) sendSMS(user_address);
-                if (email) sendEmail(user_address);
                 setLoading(false);
                 Toastify__default["default"]({
                   text: text,
@@ -255,32 +203,32 @@
                   }
                 }).showToast();
                 $__default["default"]('#closeModal').click();
-                _context5.next = 30;
+                _context3.next = 29;
                 break;
-              case 26:
-                _context5.prev = 26;
-                _context5.t0 = _context5["catch"](3);
+              case 25:
+                _context3.prev = 25;
+                _context3.t0 = _context3["catch"](4);
                 console.log({
-                  err: _context5.t0
+                  err: _context3.t0
                 });
                 // Toastify({text:err,style: {background: "linear-gradient(to right, #dc3545, #dc3541"}}).showToast();
                 setLoading(false);
-              case 30:
+              case 29:
               case "end":
-                return _context5.stop();
+                return _context3.stop();
             }
           }
-        }, _callee5, null, [[3, 26]]);
+        }, _callee3, null, [[4, 25]]);
       }));
       return _updateProfile.apply(this, arguments);
     }
     var disableNotifications = /*#__PURE__*/function () {
-      var _ref4 = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee4() {
-        return _regeneratorRuntime__default["default"].wrap(function _callee4$(_context4) {
+      var _ref2 = _asyncToGenerator__default["default"]( /*#__PURE__*/_regeneratorRuntime__default["default"].mark(function _callee2() {
+        return _regeneratorRuntime__default["default"].wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                _context4.next = 2;
+                _context2.next = 2;
                 return sg.updateProfile({
                   user_address: user_address,
                   value: null,
@@ -297,13 +245,13 @@
                 }).showToast();
               case 5:
               case "end":
-                return _context4.stop();
+                return _context2.stop();
             }
           }
-        }, _callee4);
+        }, _callee2);
       }));
       return function disableNotifications() {
-        return _ref4.apply(this, arguments);
+        return _ref2.apply(this, arguments);
       };
     }();
     var showModal = function showModal() {

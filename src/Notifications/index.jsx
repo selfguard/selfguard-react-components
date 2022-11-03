@@ -11,7 +11,8 @@ import 'react-phone-input-2/lib/style.css'
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 let domain = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL : "http://localhost:8080"
 
-const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection_name, sms_text, email_subject, email_body}) => {
+const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection_name}) => {
+  let sg = new SelfGuard(api_key,null,null,null,domain);
 
   function usePrevious(value) {
     const ref = useRef();
@@ -22,15 +23,6 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
   }
   const prevAccount = usePrevious(user_address)
 
-  let sg = new SelfGuard(api_key, null, null, null, domain);
-  let sendSMS = async (key) => {
-    await sg.sendSMS({user_address:key, collection_name, text:sms_text});
-  }
-
-  let sendEmail = async (key) => {
-    await sg.sendEmail({user_address:key, collection_name, subject:email_subject, body:email_body});
-  }
-
   /* Setting up the state of the component. */
   let [loading, setLoading] = useState(false);
   let [email, setEmail] = useState(null);
@@ -40,12 +32,10 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
   let [activated, setActivated] = useState(false);
   let [checked, setChecked] = useState(true);
 
-
   /* This is a React hook that is called when the component is mounted. It is used to fetch the user's
   profile from the SelfGuard API. */
   useEffect(()=>{
     async function fetchData(){
-      let sg = new SelfGuard(api_key,null,null,null,domain);
       //get email
         try {
           let profile = await sg.getProfile({user_address,collection_name});
@@ -76,7 +66,8 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
    * It takes the email, phone, and user_address from the state and dispatches an action to update the
    * profile
    */
-   async function updateProfile(){
+   async function updateProfile(e){
+    if(e && e.preventDefault) e.preventDefault();
     if(!checked) return;
     setLoading(true);
     try {
@@ -104,9 +95,6 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
         onDisabled();
         setActivated(false);
       }
-
-      if(phone) sendSMS(user_address);
-      if(email) sendEmail(user_address);
 
       setLoading(false);
       Toastify({text,style: {background: "linear-gradient(to right, #198754, #198751"}}).showToast();

@@ -25,9 +25,10 @@ var SelfGuard__default = /*#__PURE__*/_interopDefaultLegacy(SelfGuard);
 
 var e=[],t=[];function n(n,r){if(n&&"undefined"!=typeof document){var a,s=!0===r.prepend?"prepend":"append",d=!0===r.singleTag,i="string"==typeof r.container?document.querySelector(r.container):document.getElementsByTagName("head")[0];if(d){var u=e.indexOf(i);-1===u&&(u=e.push(i)-1,t[u]={}),a=t[u]&&t[u][s]?t[u][s]:t[u][s]=c();}else a=c();65279===n.charCodeAt(0)&&(n=n.substring(1)),a.styleSheet?a.styleSheet.cssText+=n:a.appendChild(document.createTextNode(n));}function c(){var e=document.createElement("style");if(e.setAttribute("type","text/css"),r.attributes)for(var t=Object.keys(r.attributes),n=0;n<t.length;n++)e.setAttribute(t[n],r.attributes[t[n]]);var a="prepend"===s?"afterbegin":"beforeend";return i.insertAdjacentElement(a,e),e}}
 
-var css = ".scrolling-words-container {\n  display: flex;\n  align-items: center;\n  font-size: 4rem;\n  font-weight: 600;\n}\n\n.scrolling-words-box {\n  height: 6rem;\n  overflow: hidden;\n}\n.scrolling-words-box ul {\n  height: 48rem;\n  padding: 0;\n  animation: scrollUp 20s infinite;\n}\n\n.scrolling-words-box ul li {\n  text-align:center;\n  list-style: none;\n}\n\n#give {\n  font-size:4rem;\n}\n\n@media only screen and (max-width: 768px) {\n  .scrolling-words-container {\n    display: flex;\n    align-items: center;\n    font-size: 2rem;\n    font-weight: 600;\n  }\n\n  #give {\n    font-size:2rem;\n  }\n  \n  .scrolling-words-box {\n    height: 3rem;\n    overflow: hidden;\n  }\n  .scrolling-words-box ul {\n    height: 24rem;\n    padding: 0;\n    animation: scrollUp 20s infinite;\n  }\n}\n\n@keyframes scrollUp {\n  0%, 10% {\n    transform: translateY(0%);\n  }\n  12%, 22% {\n    transform: translateY(-12.5%);\n  }\n  24%, 34% {\n    transform: translateY(-25%);\n  }\n  36%, 46% {\n    transform: translateY(-37.5%);\n  }\n  48%, 58% {\n    transform: translateY(-50%);\n  }\n  60%, 70% {\n    transform: translateY(-62.5%);\n  }\n  72%, 82% {\n    transform: translateY(-75%);\n  }\n  84%, 94% {\n    transform: translateY(-87.5%);\n  }\n  96%, 100% {\n    transform: translateY(-0%);\n  }\n\n}\n\n.navbar-expand-lg .navbar-nav {\n    /* flex-direction: row !important; */\n}\n\n#signupdialog{\n  margin-left: auto !important;\n  margin-right: auto !important;\n}\n\n#code {\n  box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important\n}\n\n.mb-2{\n  margin-bottom: 0px !important;\n}\n\n.dropdown-item:focus, .dropdown-item:hover {\n    color: blue;\n    background: none !important;\n}\n\n.section {\n  margin-top: 50px;\n  margin-bottom: 50px;\n  background: #f9f9f9;\n  border-radius: 10px;\n  padding: 50px;\n}\n\n.reverse {\n  display: flex;\n  flex-direction: row-reverse;\n}\n\n.img-fluid {\n  box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important;\n}\n\n.dropdown:hover .dropdown-menu {\n    display: block;\n    margin-top: 0;\n }\n\n\n.vertical4 {\n    display: flex;\n    align-items: center;\n    flex-direction: row;\n    flex-wrap: wrap;\n    align-content: space-around;\n    justify-content: flex-start;\n}\n\n\n .vertical3 {\n    display: flex;\n    align-items: center;\n    flex-direction: row;\n    flex-wrap: wrap;\n    align-content: space-around;\n    justify-content: space-between;\n}\n\n.vertical2 {\n  display: flex;\n  align-items: center;\n  flex-direction: row;\n  flex-wrap: wrap;\n  align-content: space-around;\n  justify-content: center;\n}\n\n.fileIcon {\n  /* float:left; */\n  margin-right:2px;\n  margin-bottom:3px;\n}\n\n#inputPassword5 {\n  background-color: white;\n  /* border:none; */\n  border-radius:0;\n  outline:none;\n}\n\n.App-payment{\n  padding: 20px;\nborder-radius: 10px;\nbackground: #e9e9e9;\n}\n\nbody {\n    margin: 0;\n    font-family: 'Roboto',monospace;\n    /* font-family: DM Serif Display Regular; */\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n}\n\n.modal{\n  padding:0\n}\n\n\ncode {\n    font-family: source-code-pro, Menlo, Monaco, Consolas, \"Courier New\", monospace;\n}\n\ntd {\n  text-align: center;\n}\n\n.modal-backdrop {\n  z-index: 0;\n}\n\nth {\n  text-align:center;\n}\n\n.row {\n  /* margin-right:0 !important; */\n}\n\n.card-title {\n  align-items: center;\n  display: flex;\n  text-align: left;\n}\n\n.bi {\n  font-size:30px;\n}\n\n.vertical {\n  display: flex;\n  align-items: center;\n  flex-direction: row;\n  flex-wrap: wrap;\n  align-content: space-around;\n}\n\n.header {\n  background:#dee2e6;\n  display:flex;\n  align-items: center;\n  margin-bottom:10px;\n  justify-content: space-between;\n}\n\n#uploadFiles {\n  min-height:150px;\n  background: rgba(var(--bs-light-rgb),0.5);\n  padding-top:20px;\n  padding-bottom: 20px;\n}\n\n#listFiles {\n  border: 1px solid #dee2e6;\n  margin-bottom: 20px;\n}\n";
+var css = ".scrolling-words-container {\n  display: flex;\n  align-items: center;\n  font-size: 4rem;\n  font-weight: 600;\n}\n\n.scrolling-words-box {\n  height: 6rem;\n  overflow: hidden;\n}\n\n#doges {\n  width: 100%; height: 100%; transform: translate3d(0px, 0px, 0px); content-visibility: visible;\n}\n\n.scrolling-words-box ul {\n  height: 48rem;\n  padding: 0;\n  animation: scrollUp 20s infinite;\n}\n\n\n.react-tel-input .form-control{\n  margin: 0;\n  height:100%;\n  width:100%;\n}\n\n\n.scrolling-words-box ul li {\n  text-align:center;\n  list-style: none;\n}\n\n#give {\n  font-size:4rem;\n}\n\n@media only screen and (max-width: 768px) {\n  .scrolling-words-container {\n    display: flex;\n    align-items: center;\n    font-size: 2rem;\n    font-weight: 600;\n  }\n\n  #give {\n    font-size:2rem;\n  }\n  \n  .scrolling-words-box {\n    height: 3rem;\n    overflow: hidden;\n  }\n  .scrolling-words-box ul {\n    height: 24rem;\n    padding: 0;\n    animation: scrollUp 20s infinite;\n  }\n}\n\n@keyframes scrollUp {\n  0%, 10% {\n    transform: translateY(0%);\n  }\n  12%, 22% {\n    transform: translateY(-12.5%);\n  }\n  24%, 34% {\n    transform: translateY(-25%);\n  }\n  36%, 46% {\n    transform: translateY(-37.5%);\n  }\n  48%, 58% {\n    transform: translateY(-50%);\n  }\n  60%, 70% {\n    transform: translateY(-62.5%);\n  }\n  72%, 82% {\n    transform: translateY(-75%);\n  }\n  84%, 94% {\n    transform: translateY(-87.5%);\n  }\n  96%, 100% {\n    transform: translateY(-0%);\n  }\n\n}\n\n.navbar-expand-lg .navbar-nav {\n    /* flex-direction: row !important; */\n}\n\n#signupdialog{\n  margin-left: auto !important;\n  margin-right: auto !important;\n}\n\n#code {\n  box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important\n}\n\n.mb-2{\n  margin-bottom: 0px !important;\n}\n\n.dropdown-item:focus, .dropdown-item:hover {\n    color: blue;\n    background: none !important;\n}\n\n.section {\n  margin-top: 50px;\n  margin-bottom: 50px;\n  background: #f9f9f9;\n  border-radius: 10px;\n  padding: 50px;\n}\n\n.reverse {\n  display: flex;\n  flex-direction: row-reverse;\n}\n\n.img-fluid {\n  box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important;\n}\n\n.dropdown:hover .dropdown-menu {\n    display: block;\n    margin-top: 0;\n }\n\n\n.vertical4 {\n    display: flex;\n    align-items: center;\n    flex-direction: row;\n    flex-wrap: wrap;\n    align-content: space-around;\n    justify-content: flex-start;\n}\n\n\n .vertical3 {\n    display: flex;\n    align-items: center;\n    flex-direction: row;\n    flex-wrap: wrap;\n    align-content: space-around;\n    justify-content: space-between;\n}\n\n.vertical2 {\n  display: flex;\n  align-items: center;\n  flex-direction: row;\n  flex-wrap: wrap;\n  align-content: space-around;\n  justify-content: center;\n}\n\n.fileIcon {\n  /* float:left; */\n  margin-right:2px;\n  margin-bottom:3px;\n}\n\n#inputPassword5 {\n  background-color: white;\n  /* border:none; */\n  border-radius:0;\n  outline:none;\n}\n\n.App-payment{\n  padding: 20px;\nborder-radius: 10px;\nbackground: #e9e9e9;\n}\n\nbody {\n    margin: 0;\n    font-family: 'Roboto',monospace;\n    /* font-family: DM Serif Display Regular; */\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n}\n\n.modal{\n  padding:0\n}\n\n\ncode {\n    font-family: source-code-pro, Menlo, Monaco, Consolas, \"Courier New\", monospace;\n}\n\ntd {\n  text-align: center;\n}\n\n.modal-backdrop {\n  z-index: 0;\n}\n\nth {\n  text-align:center;\n}\n\n.row {\n  /* margin-right:0 !important; */\n}\n\n.card-title {\n  align-items: center;\n  display: flex;\n  text-align: left;\n}\n\n.bi {\n  font-size:30px;\n}\n\n.vertical {\n  display: flex;\n  align-items: center;\n  flex-direction: row;\n  flex-wrap: wrap;\n  align-content: space-around;\n}\n\n.header {\n  background:#dee2e6;\n  display:flex;\n  align-items: center;\n  margin-bottom:10px;\n  justify-content: space-between;\n}\n\n#uploadFiles {\n  min-height:150px;\n  background: rgba(var(--bs-light-rgb),0.5);\n  padding-top:20px;\n  padding-bottom: 20px;\n}\n\n#listFiles {\n  border: 1px solid #dee2e6;\n  margin-bottom: 20px;\n}\n";
 n(css,{});
 
+var _this = undefined;
 var phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 var domain = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL : "http://localhost:8080";
 var Notifications = function Notifications(_ref) {
@@ -35,7 +36,8 @@ var Notifications = function Notifications(_ref) {
     onEnabled = _ref.onEnabled,
     api_key = _ref.api_key,
     user_address = _ref.user_address,
-    collection_name = _ref.collection_name;
+    collection_name = _ref.collection_name,
+    color = _ref.color;
   var sg = new SelfGuard__default["default"](api_key, null, null, null, domain);
   function usePrevious(value) {
     var ref = React.useRef();
@@ -76,6 +78,11 @@ var Notifications = function Notifications(_ref) {
     _useState14 = _slicedToArray__default["default"](_useState13, 2),
     checked = _useState14[0],
     setChecked = _useState14[1];
+  React.useEffect(function () {
+    //move the div with id notificationsModal to the first child of body
+    // let modal = document.getElementById('notificationsModal');
+    // if(modal) document.body.insertBefore(modal, document.body.firstChild);
+  });
 
   /* This is a React hook that is called when the component is mounted. It is used to fetch the user's
   profile from the SelfGuard API. */
@@ -99,25 +106,24 @@ var Notifications = function Notifications(_ref) {
               case 3:
                 profile = _context.sent;
                 if (profile.email || profile.phone) {
-                  onEnabled();
+                  if (typeof onEnabled === 'function') onEnabled();
                   setActivated(true);
                 } else {
-                  onDisabled();
+                  if (typeof onDisabled === 'function') onDisabled();
                   setActivated(false);
                 }
-                _context.next = 14;
+                _context.next = 13;
                 break;
               case 7:
                 _context.prev = 7;
                 _context.t0 = _context["catch"](0);
-                console.log(_context.t0);
-                onDisabled();
+                if (typeof onDisabled === 'function') onDisabled();
                 setActivated(false);
                 setEmail(null);
                 setPhone(null);
-              case 14:
+              case 13:
                 setRequested(true);
-              case 15:
+              case 14:
               case "end":
                 return _context.stop();
             }
@@ -194,12 +200,12 @@ var Notifications = function Notifications(_ref) {
             case 17:
               text = "Notifications Enabled";
               if (email || phone) {
-                onEnabled();
+                if (typeof onEnabled === 'function') onEnabled();
                 setActivated(true);
               }
               if (!email && !phone) {
                 text = "Notifications Disabled";
-                onDisabled();
+                if (typeof onDisabled === 'function') onDisabled();
                 setActivated(false);
               }
               setLoading(false);
@@ -242,7 +248,7 @@ var Notifications = function Notifications(_ref) {
                 collection_name: collection_name
               });
             case 2:
-              onDisabled();
+              if (typeof onDisabled === 'function') onDisabled();
               setActivated(false);
               Toastify__default["default"]({
                 text: "Notifications Disabled",
@@ -263,6 +269,10 @@ var Notifications = function Notifications(_ref) {
   }();
   var showModal = function showModal() {
     new window.bootstrap.Modal('#notificationsModal').show();
+    //move div with class modal-backdrop to a child of the div with id notification-component
+    var modalBackdrop = document.getElementsByClassName('modal-backdrop')[0];
+    var notificationComponent = document.getElementById('notification-component');
+    if (modalBackdrop && notificationComponent) notificationComponent.appendChild(modalBackdrop);
   };
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
@@ -271,7 +281,9 @@ var Notifications = function Notifications(_ref) {
     setPhone(v);
     setCountry(c.countryCode);
   }
-  return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement("link", {
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    id: "notification-component"
+  }, /*#__PURE__*/React__default["default"].createElement("link", {
     rel: "stylesheet",
     href: "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
   }), /*#__PURE__*/React__default["default"].createElement("link", {
@@ -289,7 +301,8 @@ var Notifications = function Notifications(_ref) {
   }), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "modal fade",
     style: {
-      margin: 0
+      margin: 0,
+      zIndex: 100000
     },
     tabIndex: "-1",
     id: 'notificationsModal'
@@ -320,7 +333,7 @@ var Notifications = function Notifications(_ref) {
   })), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "modal-body"
   }, /*#__PURE__*/React__default["default"].createElement("form", {
-    onSubmit: updateProfile
+    onSubmit: updateProfile.bind(_this)
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "mb-3",
     style: {
@@ -416,7 +429,7 @@ var Notifications = function Notifications(_ref) {
       justifyContent: 'space-between'
     }
   }, !loading ? /*#__PURE__*/React__default["default"].createElement("button", {
-    onClick: updateProfile,
+    onClick: updateProfile.bind(_this),
     disabled: !checked,
     className: "btn btn-dark"
   }, " Submit ") : /*#__PURE__*/React__default["default"].createElement(ClipLoader__default["default"], null), /*#__PURE__*/React__default["default"].createElement("a", {
@@ -459,17 +472,17 @@ var Notifications = function Notifications(_ref) {
     href: "https://getnotified.xyz"
   }, " Click here to get started.")))))))), /*#__PURE__*/React__default["default"].createElement("button", {
     style: {
-      marginTop: '10px'
+      marginTop: '0px'
     },
     onClick: !activated ? showModal : disableNotifications,
-    className: "btn ".concat(activated ? "btn-danger" : "btn-dark", " vertical")
+    className: "btn btn vertical"
   }, /*#__PURE__*/React__default["default"].createElement("i", {
     style: {
       fontSize: '20px',
-      marginRight: '10px'
+      color: color
     },
     className: "bi bi-".concat(activated ? 'bell-slash' : 'bell')
-  }), activated ? "Disable Notifications" : "Enable Notifications"));
+  })));
 };
 
 var returnLibrary = function returnLibrary() {

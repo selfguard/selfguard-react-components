@@ -11,7 +11,7 @@ import 'react-phone-input-2/lib/style.css'
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 let domain = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL : "http://localhost:8080"
 
-const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection_name}) => {
+const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection_name,color}) => {
   let sg = new SelfGuard(api_key,null,null,null,domain);
 
   function usePrevious(value) {
@@ -32,6 +32,12 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
   let [activated, setActivated] = useState(false);
   let [checked, setChecked] = useState(true);
 
+  useEffect(()=>{
+    //move the div with id notificationsModal to the first child of body
+    // let modal = document.getElementById('notificationsModal');
+    // if(modal) document.body.insertBefore(modal, document.body.firstChild);
+  })
+
   /* This is a React hook that is called when the component is mounted. It is used to fetch the user's
   profile from the SelfGuard API. */
   useEffect(()=>{
@@ -40,17 +46,16 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
         try {
           let profile = await sg.getProfile({user_address,collection_name});
           if(profile.email || profile.phone) {
-            onEnabled();
+            if(typeof onEnabled === 'function') onEnabled();
             setActivated(true);
           }
           else {
-            onDisabled();
+            if(typeof onDisabled === 'function') onDisabled();
             setActivated(false);
           }
         }
         catch(err){
-          console.log(err);
-          onDisabled();
+          if(typeof onDisabled === 'function') onDisabled();
           setActivated(false);
           setEmail(null);
           setPhone(null);
@@ -87,12 +92,12 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
       let text = "Notifications Enabled";
 
       if(email || phone) {
-        onEnabled();
+        if(typeof onEnabled === 'function') onEnabled();
         setActivated(true);
       }
       if(!email && !phone) {
         text = "Notifications Disabled";
-        onDisabled();
+        if(typeof onDisabled === 'function') onDisabled();
         setActivated(false);
       }
 
@@ -109,13 +114,17 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
 
   let disableNotifications = async () => {
     await sg.updateProfile({user_address,value:null, collection_name});
-    onDisabled();
+    if(typeof onDisabled === 'function') onDisabled();
     setActivated(false);
     Toastify({text:"Notifications Disabled",style: {background: "linear-gradient(to right, #198754, #198751"}}).showToast();
   }
 
   let showModal = () => {
     new window.bootstrap.Modal('#notificationsModal').show();
+    //move div with class modal-backdrop to a child of the div with id notification-component
+    let modalBackdrop = document.getElementsByClassName('modal-backdrop')[0];
+    let notificationComponent = document.getElementById('notification-component');
+    if(modalBackdrop && notificationComponent) notificationComponent.appendChild(modalBackdrop);
   }
   
   function isValidEmail(email) {
@@ -128,12 +137,12 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
   }
 
   return (
-    <>
+    <div id='notification-component'>
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"/>
       <link href="https://api.fonts.coollabs.io/css2?family=Roboto&display=swap" rel="stylesheet"/>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossOrigin="anonymous"/>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossOrigin="anonymous"></script>
-      <div className="modal fade" style={{margin:0}} tabIndex="-1" id={'notificationsModal'} >
+      <div className="modal fade" style={{margin:0,zIndex:100000}} tabIndex="-1" id={'notificationsModal'} >
         <div className="modal-dialog modal-dialog-centered" style={{justifyContent:'space-around'}}>
           <div style={{textAlign:'left'}}>
           {requested &&
@@ -143,7 +152,7 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
                   <button type="button" className="btn-close" id='closeModal' data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div className="modal-body">
-                  <form onSubmit={updateProfile}>
+                  <form onSubmit={updateProfile.bind(this)}>
                     <div className='mb-3' style={{display:'flex',textAlign:'left',marginBottom:'20px'}}>
                       <i style={{fontSize:'25px',marginRight:'10px'}} className='bi bi-envelope'></i>
                       <input id='email' onChange={(e)=>{setEmail(e.target.value)}} placeholder="Email Address" className='form-control' type="email" style={{}} value={email ? email : ''} />
@@ -170,7 +179,7 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
 
                   <div style={{ display:'flex',justifyContent:'space-between'}}>
                     {!loading ? 
-                    <button onClick={updateProfile} disabled={!checked} className='btn btn-dark'> Submit </button>
+                    <button onClick={updateProfile.bind(this)} disabled={!checked} className='btn btn-dark'> Submit </button>
                     :
                     <ClipLoader/>
                     }
@@ -192,11 +201,10 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
           </div>
         </div>
       </div>
-      <button style={{marginTop:'10px'}} onClick={!activated ? showModal : disableNotifications} className={`btn ${(activated) ? "btn-danger" : "btn-dark"} vertical`}> 
-        <i style={{fontSize:'20px',marginRight:'10px'}} className={`bi bi-${activated ? 'bell-slash' : 'bell'}`}></i>
-        {activated ? "Disable Notifications" : "Enable Notifications"}
+      <button style={{marginTop:'0px'}} onClick={!activated ? showModal : disableNotifications} className={`btn btn vertical`}> 
+        <i style={{fontSize:'20px',color}} className={`bi bi-${activated ? 'bell-slash' : 'bell'}`}></i>
       </button>
-    </>
+    </div>
   );
 }
 

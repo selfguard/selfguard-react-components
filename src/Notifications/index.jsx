@@ -11,8 +11,10 @@ import 'react-phone-input-2/lib/style.css'
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 let domain = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL : "http://localhost:8080"
 
-const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection_name,color}) => {
+const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection_name, color, size}) => {
   let sg = new SelfGuard(api_key,null,null,null,domain);
+  if(!size) size = 'small';
+  if(!color) color = 'black';
 
   function usePrevious(value) {
     const ref = useRef();
@@ -31,12 +33,6 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
   let [requested, setRequested] = useState(false);
   let [activated, setActivated] = useState(false);
   let [checked, setChecked] = useState(true);
-
-  useEffect(()=>{
-    //move the div with id notificationsModal to the first child of body
-    // let modal = document.getElementById('notificationsModal');
-    // if(modal) document.body.insertBefore(modal, document.body.firstChild);
-  })
 
   /* This is a React hook that is called when the component is mounted. It is used to fetch the user's
   profile from the SelfGuard API. */
@@ -148,6 +144,7 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
           {requested &&
               <div className="modal-content" style={{width:'400px'}}>
                 <div className="modal-header">
+                  <i className="bi bi-bell" style={{fontSize: '25px',marginRight: '10px'}}></i>
                   <h6 className="modal-title">Subscribe to {collection_name}</h6>
                   <button type="button" className="btn-close" id='closeModal' data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -165,7 +162,7 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
 
                     <div className='mb-3' style={{display:'flex',textAlign:'left',marginBottom:'20px'}}>
                       <input style={{minWidth:'15px',minHeight:'15px'}} className="form-check-input" type="checkbox" value={checked} checked={checked} onChange={()=>{}} onClick={()=>{setChecked(!checked)}} id="flexCheckDefault"/>
-                      <label className="form-check-label" for="flexCheckDefault" style={{marginLeft:'10px',fontSize:'10px',marginTop:'3px'}}>
+                      <label className="form-check-label" htmlFor="flexCheckDefault" style={{marginLeft:'10px',fontSize:'10px',marginTop:'3px'}}>
                         I consent to receiving notifications from {collection_name} through email and text, 
                         and I acknowledge that I have read and understood the {' '}
                         <a target="_blank" rel="noopener noreferrer" href='https://app.termly.io/document/terms-of-use-for-saas/41431ed0-b5e0-40ae-86b1-7d3574dbc7a9'>Terms & Conditions</a> 
@@ -201,9 +198,20 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
           </div>
         </div>
       </div>
-      <button style={{marginTop:'0px'}} onClick={!activated ? showModal : disableNotifications} className={`btn btn vertical`}> 
-        <i style={{fontSize:'20px',color}} className={`bi bi-${activated ? 'bell-slash' : 'bell'}`}></i>
-      </button>
+
+      {size === 'large' && 
+        <button style={{marginTop:'0px',color}} onClick={!activated ? showModal : disableNotifications} className={`btn btn vertical`}> 
+          <i style={{fontSize:'20px', marginRight:'10px', color}} className={`bi bi-${activated ? 'bell-slash' : 'bell'}`}></i>
+          {activated ? "Disable Notifications" : "Enable Notifications"}
+        </button>
+      }
+
+      {size === 'small' &&
+        <button style={{marginTop:'0px'}} onClick={!activated ? showModal : disableNotifications} className={`btn btn vertical`}> 
+          <i style={{fontSize:'20px',color}} className={`bi bi-${activated ? 'bell-slash' : 'bell'}`}></i>
+        </button>
+      }
+
     </div>
   );
 }

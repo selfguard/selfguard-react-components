@@ -23,8 +23,11 @@ var Notifications = function Notifications(_ref) {
     api_key = _ref.api_key,
     user_address = _ref.user_address,
     collection_name = _ref.collection_name,
-    color = _ref.color;
+    color = _ref.color,
+    size = _ref.size;
   var sg = new SelfGuard(api_key, null, null, null, domain);
+  if (!size) size = 'small';
+  if (!color) color = 'black';
   function usePrevious(value) {
     var ref = useRef();
     useEffect(function () {
@@ -64,11 +67,6 @@ var Notifications = function Notifications(_ref) {
     _useState14 = _slicedToArray(_useState13, 2),
     checked = _useState14[0],
     setChecked = _useState14[1];
-  useEffect(function () {
-    //move the div with id notificationsModal to the first child of body
-    // let modal = document.getElementById('notificationsModal');
-    // if(modal) document.body.insertBefore(modal, document.body.firstChild);
-  });
 
   /* This is a React hook that is called when the component is mounted. It is used to fetch the user's
   profile from the SelfGuard API. */
@@ -308,7 +306,13 @@ var Notifications = function Notifications(_ref) {
     }
   }, /*#__PURE__*/React.createElement("div", {
     className: "modal-header"
-  }, /*#__PURE__*/React.createElement("h6", {
+  }, /*#__PURE__*/React.createElement("i", {
+    className: "bi bi-bell",
+    style: {
+      fontSize: '25px',
+      marginRight: '10px'
+    }
+  }), /*#__PURE__*/React.createElement("h6", {
     className: "modal-title"
   }, "Subscribe to ", collection_name), /*#__PURE__*/React.createElement("button", {
     type: "button",
@@ -387,7 +391,7 @@ var Notifications = function Notifications(_ref) {
     id: "flexCheckDefault"
   }), /*#__PURE__*/React.createElement("label", {
     className: "form-check-label",
-    "for": "flexCheckDefault",
+    htmlFor: "flexCheckDefault",
     style: {
       marginLeft: '10px',
       fontSize: '10px',
@@ -456,7 +460,21 @@ var Notifications = function Notifications(_ref) {
     target: "_blank",
     rel: "noopener noreferrer",
     href: "https://getnotified.xyz"
-  }, " Click here to get started.")))))))), /*#__PURE__*/React.createElement("button", {
+  }, " Click here to get started.")))))))), size === 'large' && /*#__PURE__*/React.createElement("button", {
+    style: {
+      marginTop: '0px',
+      color: color
+    },
+    onClick: !activated ? showModal : disableNotifications,
+    className: "btn btn vertical"
+  }, /*#__PURE__*/React.createElement("i", {
+    style: {
+      fontSize: '20px',
+      marginRight: '10px',
+      color: color
+    },
+    className: "bi bi-".concat(activated ? 'bell-slash' : 'bell')
+  }), activated ? "Disable Notifications" : "Enable Notifications"), size === 'small' && /*#__PURE__*/React.createElement("button", {
     style: {
       marginTop: '0px'
     },

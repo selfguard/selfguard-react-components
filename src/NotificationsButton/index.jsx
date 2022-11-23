@@ -11,7 +11,7 @@ import 'react-phone-input-2/lib/style.css'
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 let domain = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL : "http://localhost:8080"
 
-const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection_name, color, size}) => {
+const NotificationsButton = ({onDisabled, onEnabled, api_key, user_address, collection_name, color, size}) => {
   let sg = new SelfGuard(api_key,null,null,null,domain);
   if(!size) size = 'small';
   if(!color) color = 'black';
@@ -98,7 +98,7 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
       }
 
       setLoading(false);
-      Toastify({text,style: {background: "linear-gradient(to right, #198754, #198751"}}).showToast();
+      // Toastify({text,style: {background: "linear-gradient(to right, #198754, #198751"}}).showToast();
       $('#closeModal').click();
     }
     catch(err){
@@ -112,7 +112,7 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
     await sg.updateProfile({user_address,value:null, collection_name});
     if(typeof onDisabled === 'function') onDisabled();
     setActivated(false);
-    Toastify({text:"Notifications Disabled",style: {background: "linear-gradient(to right, #198754, #198751"}}).showToast();
+    // Toastify({text:"Notifications Disabled",style: {background: "linear-gradient(to right, #198754, #198751"}}).showToast();
   }
 
   let showModal = () => {
@@ -216,4 +216,4 @@ const Notifications = ({onDisabled, onEnabled, api_key, user_address, collection
   );
 }
 
-export default Notifications;
+export default NotificationsButton;

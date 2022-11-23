@@ -17,7 +17,7 @@ n(css,{});
 var _this = undefined;
 var phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 var domain = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL : "http://localhost:8080";
-var Notifications = function Notifications(_ref) {
+var NotificationsButton = function NotificationsButton(_ref) {
   var onDisabled = _ref.onDisabled,
     onEnabled = _ref.onEnabled,
     api_key = _ref.api_key,
@@ -130,7 +130,6 @@ var Notifications = function Notifications(_ref) {
   }
   function _updateProfile() {
     _updateProfile = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee3(e) {
-      var text;
       return _regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -182,40 +181,33 @@ var Notifications = function Notifications(_ref) {
                 collection_name: collection_name
               });
             case 17:
-              text = "Notifications Enabled";
               if (email || phone) {
                 if (typeof onEnabled === 'function') onEnabled();
                 setActivated(true);
               }
               if (!email && !phone) {
-                text = "Notifications Disabled";
                 if (typeof onDisabled === 'function') onDisabled();
                 setActivated(false);
               }
               setLoading(false);
-              Toastify({
-                text: text,
-                style: {
-                  background: "linear-gradient(to right, #198754, #198751"
-                }
-              }).showToast();
+              // Toastify({text,style: {background: "linear-gradient(to right, #198754, #198751"}}).showToast();
               $('#closeModal').click();
-              _context3.next = 29;
+              _context3.next = 28;
               break;
-            case 25:
-              _context3.prev = 25;
+            case 24:
+              _context3.prev = 24;
               _context3.t0 = _context3["catch"](4);
               console.log({
                 err: _context3.t0
               });
               // Toastify({text:err,style: {background: "linear-gradient(to right, #dc3545, #dc3541"}}).showToast();
               setLoading(false);
-            case 29:
+            case 28:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[4, 25]]);
+      }, _callee3, null, [[4, 24]]);
     }));
     return _updateProfile.apply(this, arguments);
   }
@@ -234,13 +226,8 @@ var Notifications = function Notifications(_ref) {
             case 2:
               if (typeof onDisabled === 'function') onDisabled();
               setActivated(false);
-              Toastify({
-                text: "Notifications Disabled",
-                style: {
-                  background: "linear-gradient(to right, #198754, #198751"
-                }
-              }).showToast();
-            case 5:
+              // Toastify({text:"Notifications Disabled",style: {background: "linear-gradient(to right, #198754, #198751"}}).showToast();
+            case 4:
             case "end":
               return _context2.stop();
           }
@@ -491,7 +478,7 @@ var Notifications = function Notifications(_ref) {
 
 var returnLibrary = function returnLibrary() {
   return {
-    Notifications: Notifications
+    NotificationsButton: NotificationsButton
     // you can add here other components that you want to export
   };
 };

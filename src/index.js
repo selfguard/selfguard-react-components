@@ -1,8 +1,8 @@
-import Notifications from './Notifications/index.jsx'
+import NotificationsButton from './NotificationsButton/index.jsx'
 
 const returnLibrary = () => {
     return {
-        Notifications:Notifications
+        NotificationsButton
         // you can add here other components that you want to export
     }
 }

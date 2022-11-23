@@ -31,7 +31,8 @@
       user_address = _ref.user_address,
       notification_group = _ref.notification_group,
       color = _ref.color,
-      size = _ref.size;
+      size = _ref.size,
+      background = _ref.background;
     var sg = new SelfGuard__default["default"](api_key, null, null, null, domain);
     if (!size) size = 'small';
     if (!color) color = 'black';
@@ -259,6 +260,13 @@
       setPhone(v);
       setCountry(c.countryCode);
     }
+    var buttonClassName = 'btn btn';
+    if (background === 'black') {
+      buttonClassName = 'btn btn-dark';
+    }
+    if (background === 'white') {
+      buttonClassName = 'btn btn-light';
+    }
     return /*#__PURE__*/React__default["default"].createElement("div", {
       id: "notification-component"
     }, /*#__PURE__*/React__default["default"].createElement("link", {
@@ -460,7 +468,7 @@
         color: color
       },
       onClick: !activated ? showModal : disableNotifications,
-      className: "btn btn vertical"
+      className: "".concat(buttonClassName, " vertical")
     }, /*#__PURE__*/React__default["default"].createElement("i", {
       style: {
         fontSize: '20px',
@@ -473,7 +481,7 @@
         marginTop: '0px'
       },
       onClick: !activated ? showModal : disableNotifications,
-      className: "btn btn vertical"
+      className: "".concat(buttonClassName, " vertical")
     }, /*#__PURE__*/React__default["default"].createElement("i", {
       style: {
         fontSize: '20px',

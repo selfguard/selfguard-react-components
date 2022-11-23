@@ -11,7 +11,7 @@ import 'react-phone-input-2/lib/style.css'
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 let domain = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL : "http://localhost:8080"
 
-const NotificationsButton = ({onDisabled, onEnabled, api_key, user_address, notification_group, color, size}) => {
+const NotificationsButton = ({onDisabled, onEnabled, api_key, user_address, notification_group, color, size, background}) => {
   let sg = new SelfGuard(api_key,null,null,null,domain);
   if(!size) size = 'small';
   if(!color) color = 'black';
@@ -132,6 +132,15 @@ const NotificationsButton = ({onDisabled, onEnabled, api_key, user_address, noti
     setCountry(c.countryCode);
   }
 
+  let buttonClassName = 'btn btn';
+
+  if(background === 'black') {
+    buttonClassName = 'btn btn-dark'
+  }
+  if(background === 'white') {
+    buttonClassName = 'btn btn-light'
+  }
+
   return (
     <div id='notification-component'>
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"/>
@@ -200,14 +209,14 @@ const NotificationsButton = ({onDisabled, onEnabled, api_key, user_address, noti
       </div>
 
       {size === 'large' && 
-        <button style={{marginTop:'0px',color}} onClick={!activated ? showModal : disableNotifications} className={`btn btn vertical`}> 
+        <button style={{marginTop:'0px',color}} onClick={!activated ? showModal : disableNotifications} className={`${buttonClassName} vertical`}> 
           <i style={{fontSize:'20px', marginRight:'10px', color}} className={`bi bi-${activated ? 'bell-slash' : 'bell'}`}></i>
           {activated ? "Disable Notifications" : "Enable Notifications"}
         </button>
       }
 
       {size === 'small' &&
-        <button style={{marginTop:'0px'}} onClick={!activated ? showModal : disableNotifications} className={`btn btn vertical`}> 
+        <button style={{marginTop:'0px'}} onClick={!activated ? showModal : disableNotifications} className={`${buttonClassName} vertical`}> 
           <i style={{fontSize:'20px',color}} className={`bi bi-${activated ? 'bell-slash' : 'bell'}`}></i>
         </button>
       }

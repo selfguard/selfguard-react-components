@@ -11,7 +11,7 @@ import 'react-phone-input-2/lib/style.css'
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 let domain = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL : "http://localhost:8080"
 
-const NotificationsButton = ({onDisabled, onEnabled, api_key, user_address, collection_name, color, size}) => {
+const NotificationsButton = ({onDisabled, onEnabled, api_key, user_address, notification_group, color, size}) => {
   let sg = new SelfGuard(api_key,null,null,null,domain);
   if(!size) size = 'small';
   if(!color) color = 'black';
@@ -40,7 +40,7 @@ const NotificationsButton = ({onDisabled, onEnabled, api_key, user_address, coll
     async function fetchData(){
       //get email
         try {
-          let profile = await sg.getProfile({user_address,collection_name});
+          let profile = await sg.getProfile({user_address,notification_group});
           if(profile.email || profile.phone) {
             if(typeof onEnabled === 'function') onEnabled();
             setActivated(true);
@@ -61,7 +61,7 @@ const NotificationsButton = ({onDisabled, onEnabled, api_key, user_address, coll
     if(prevAccount !== user_address && user_address){
       fetchData();
     }
-  },[user_address,prevAccount,api_key, collection_name])
+  },[user_address,prevAccount,api_key, notification_group])
 
   /**
    * It takes the email, phone, and user_address from the state and dispatches an action to update the
@@ -84,7 +84,7 @@ const NotificationsButton = ({onDisabled, onEnabled, api_key, user_address, coll
         setLoading(false);
         return;
       }
-      await sg.updateProfile({user_address,value:{email,phone},collection_name});
+      await sg.updateProfile({user_address,value:{email,phone},notification_group});
       let text = "Notifications Enabled";
 
       if(email || phone) {
@@ -109,7 +109,7 @@ const NotificationsButton = ({onDisabled, onEnabled, api_key, user_address, coll
   }
 
   let disableNotifications = async () => {
-    await sg.updateProfile({user_address,value:null, collection_name});
+    await sg.updateProfile({user_address,value:null, notification_group});
     if(typeof onDisabled === 'function') onDisabled();
     setActivated(false);
     // Toastify({text:"Notifications Disabled",style: {background: "linear-gradient(to right, #198754, #198751"}}).showToast();
@@ -145,7 +145,7 @@ const NotificationsButton = ({onDisabled, onEnabled, api_key, user_address, coll
               <div className="modal-content" style={{width:'400px'}}>
                 <div className="modal-header">
                   <i className="bi bi-bell" style={{fontSize: '25px',marginRight: '10px'}}></i>
-                  <h6 className="modal-title">Subscribe to {collection_name}</h6>
+                  <h6 className="modal-title">Subscribe to {notification_group}</h6>
                   <button type="button" className="btn-close" id='closeModal' data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div className="modal-body">
@@ -163,7 +163,7 @@ const NotificationsButton = ({onDisabled, onEnabled, api_key, user_address, coll
                     <div className='mb-3' style={{display:'flex',textAlign:'left',marginBottom:'20px'}}>
                       <input style={{minWidth:'15px',minHeight:'15px'}} className="form-check-input" type="checkbox" value={checked} checked={checked} onChange={()=>{}} onClick={()=>{setChecked(!checked)}} id="flexCheckDefault"/>
                       <label className="form-check-label" htmlFor="flexCheckDefault" style={{marginLeft:'10px',fontSize:'10px',marginTop:'3px'}}>
-                        I consent to receiving notifications from {collection_name} through email and text, 
+                        I consent to receiving notifications from {notification_group} through email and text, 
                         and I acknowledge that I have read and understood the {' '}
                         <a target="_blank" rel="noopener noreferrer" href='https://app.termly.io/document/terms-of-use-for-saas/41431ed0-b5e0-40ae-86b1-7d3574dbc7a9'>Terms & Conditions</a> 
                         {' '} and {' '}<a target="_blank" rel="noopener noreferrer" href='https://app.termly.io/document/privacy-policy/5f00313b-9c18-49c4-84c1-13efea1cadd9'>Privacy Policy.</a>
@@ -171,7 +171,7 @@ const NotificationsButton = ({onDisabled, onEnabled, api_key, user_address, coll
                     </div>
                     <hr/>
                     <p className='mb-3' style={{fontSize:'10px',display:'flex',textAlign:'left',marginBottom:'20px'}}>
-                      Your email and phone number are encrypted such that {collection_name} will not be able to view them. You can always disable notifications using this widget.
+                      Your email and phone number are encrypted such that {notification_group} will not be able to view them. You can always disable notifications using this widget.
                     </p>
 
                   <div style={{ display:'flex',justifyContent:'space-between'}}>

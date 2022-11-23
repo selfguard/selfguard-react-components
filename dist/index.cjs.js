@@ -36,7 +36,7 @@ var NotificationsButton = function NotificationsButton(_ref) {
     onEnabled = _ref.onEnabled,
     api_key = _ref.api_key,
     user_address = _ref.user_address,
-    collection_name = _ref.collection_name,
+    notification_group = _ref.notification_group,
     color = _ref.color,
     size = _ref.size;
   var sg = new SelfGuard__default["default"](api_key, null, null, null, domain);
@@ -99,7 +99,7 @@ var NotificationsButton = function NotificationsButton(_ref) {
                 _context.next = 3;
                 return sg.getProfile({
                   user_address: user_address,
-                  collection_name: collection_name
+                  notification_group: notification_group
                 });
               case 3:
                 profile = _context.sent;
@@ -133,7 +133,7 @@ var NotificationsButton = function NotificationsButton(_ref) {
     if (prevAccount !== user_address && user_address) {
       fetchData();
     }
-  }, [user_address, prevAccount, api_key, collection_name]);
+  }, [user_address, prevAccount, api_key, notification_group]);
 
   /**
    * It takes the email, phone, and user_address from the state and dispatches an action to update the
@@ -192,7 +192,7 @@ var NotificationsButton = function NotificationsButton(_ref) {
                   email: email,
                   phone: phone
                 },
-                collection_name: collection_name
+                notification_group: notification_group
               });
             case 17:
               if (email || phone) {
@@ -235,7 +235,7 @@ var NotificationsButton = function NotificationsButton(_ref) {
               return sg.updateProfile({
                 user_address: user_address,
                 value: null,
-                collection_name: collection_name
+                notification_group: notification_group
               });
             case 2:
               if (typeof onDisabled === 'function') onDisabled();
@@ -315,7 +315,7 @@ var NotificationsButton = function NotificationsButton(_ref) {
     }
   }), /*#__PURE__*/React__default["default"].createElement("h6", {
     className: "modal-title"
-  }, "Subscribe to ", collection_name), /*#__PURE__*/React__default["default"].createElement("button", {
+  }, "Subscribe to ", notification_group), /*#__PURE__*/React__default["default"].createElement("button", {
     type: "button",
     className: "btn-close",
     id: "closeModal",
@@ -398,7 +398,7 @@ var NotificationsButton = function NotificationsButton(_ref) {
       fontSize: '10px',
       marginTop: '3px'
     }
-  }, "I consent to receiving notifications from ", collection_name, " through email and text, and I acknowledge that I have read and understood the ", ' ', /*#__PURE__*/React__default["default"].createElement("a", {
+  }, "I consent to receiving notifications from ", notification_group, " through email and text, and I acknowledge that I have read and understood the ", ' ', /*#__PURE__*/React__default["default"].createElement("a", {
     target: "_blank",
     rel: "noopener noreferrer",
     href: "https://app.termly.io/document/terms-of-use-for-saas/41431ed0-b5e0-40ae-86b1-7d3574dbc7a9"
@@ -414,7 +414,7 @@ var NotificationsButton = function NotificationsButton(_ref) {
       textAlign: 'left',
       marginBottom: '20px'
     }
-  }, "Your email and phone number are encrypted such that ", collection_name, " will not be able to view them. You can always disable notifications using this widget."), /*#__PURE__*/React__default["default"].createElement("div", {
+  }, "Your email and phone number are encrypted such that ", notification_group, " will not be able to view them. You can always disable notifications using this widget."), /*#__PURE__*/React__default["default"].createElement("div", {
     style: {
       display: 'flex',
       justifyContent: 'space-between'

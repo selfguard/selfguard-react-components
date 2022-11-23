@@ -4508,10 +4508,10 @@ secp256k1@4.0.3, secp256k1@^4.0.1:
     node-addon-api "^2.0.0"
     node-gyp-build "^4.2.0"
 
-selfguard-client@1.1.75:
-  version "1.1.75"
-  resolved "https://registry.yarnpkg.com/selfguard-client/-/selfguard-client-1.1.75.tgz#fc477d8a9ab14305e1ddb0714e62ad5200bca878"
-  integrity sha512-cQzcGwQt36E1OuTBLjiHwCm/vBfndK2K5RWZDpN4+qSI2BZAkrGB+KNl4MSUjfkScZ9y0+qBke2jl99c4FfdhQ==
+selfguard-client@1.1.78:
+  version "1.1.78"
+  resolved "https://registry.yarnpkg.com/selfguard-client/-/selfguard-client-1.1.78.tgz#f2052eca219b07c94f1193dc6b2792284bf90c5a"
+  integrity sha512-Xal/DlRKuJ5UgePk40zpF9gPM3yHbeqigPnV30DnqLG83+ECVEeN4ZFDxOFyEnrgmsRqnL0xNP4A8s4/yfDj1w==
   dependencies:
     "@lit-protocol/sdk-browser" "1.1.228"
     "@metamask/eth-sig-util" "^5.0.0"

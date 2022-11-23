@@ -225,17 +225,19 @@
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
+                setLoading(true);
+                _context2.next = 3;
                 return sg.updateProfile({
                   user_address: user_address,
                   value: null,
                   notification_group: notification_group
                 });
-              case 2:
+              case 3:
                 if (typeof onDisabled === 'function') onDisabled();
                 setActivated(false);
+                setLoading(false);
                 // Toastify({text:"Notifications Disabled",style: {background: "linear-gradient(to right, #198754, #198751"}}).showToast();
-              case 4:
+              case 6:
               case "end":
                 return _context2.stop();
             }
@@ -462,7 +464,7 @@
       target: "_blank",
       rel: "noopener noreferrer",
       href: "https://getnotified.xyz"
-    }, " Click here to get started.")))))))), size === 'large' && /*#__PURE__*/React__default["default"].createElement("button", {
+    }, " Click here to get started.")))))))), size === 'large' && !loading && /*#__PURE__*/React__default["default"].createElement("button", {
       style: {
         marginTop: '0px',
         color: color
@@ -476,7 +478,7 @@
         color: color
       },
       className: "bi bi-".concat(activated ? 'bell-slash' : 'bell')
-    }), activated ? "Disable Notifications" : "Enable Notifications"), size === 'small' && /*#__PURE__*/React__default["default"].createElement("button", {
+    }), activated ? "Disable Notifications" : "Enable Notifications"), size === 'small' && !loading && /*#__PURE__*/React__default["default"].createElement("button", {
       style: {
         marginTop: '0px'
       },
@@ -488,7 +490,7 @@
         color: color
       },
       className: "bi bi-".concat(activated ? 'bell-slash' : 'bell')
-    })));
+    })), loading && /*#__PURE__*/React__default["default"].createElement(ClipLoader__default["default"], null));
   };
 
   var returnLibrary = function returnLibrary() {

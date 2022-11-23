@@ -109,9 +109,11 @@ const NotificationsButton = ({onDisabled, onEnabled, api_key, user_address, noti
   }
 
   let disableNotifications = async () => {
+    setLoading(true);
     await sg.updateProfile({user_address,value:null, notification_group});
     if(typeof onDisabled === 'function') onDisabled();
     setActivated(false);
+    setLoading(false);
     // Toastify({text:"Notifications Disabled",style: {background: "linear-gradient(to right, #198754, #198751"}}).showToast();
   }
 
@@ -208,18 +210,20 @@ const NotificationsButton = ({onDisabled, onEnabled, api_key, user_address, noti
         </div>
       </div>
 
-      {size === 'large' && 
+      {(size === 'large' && !loading) &&
         <button style={{marginTop:'0px',color}} onClick={!activated ? showModal : disableNotifications} className={`${buttonClassName} vertical`}> 
           <i style={{fontSize:'20px', marginRight:'10px', color}} className={`bi bi-${activated ? 'bell-slash' : 'bell'}`}></i>
           {activated ? "Disable Notifications" : "Enable Notifications"}
         </button>
       }
 
-      {size === 'small' &&
+      {(size === 'small' && !loading) &&
         <button style={{marginTop:'0px'}} onClick={!activated ? showModal : disableNotifications} className={`${buttonClassName} vertical`}> 
           <i style={{fontSize:'20px',color}} className={`bi bi-${activated ? 'bell-slash' : 'bell'}`}></i>
         </button>
       }
+      
+      {loading && <ClipLoader/>}
 
     </div>
   );

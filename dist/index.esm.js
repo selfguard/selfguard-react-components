@@ -91,10 +91,10 @@ var NotificationsButton = function NotificationsButton(_ref) {
               case 3:
                 profile = _context.sent;
                 if (profile.email || profile.phone) {
-                  if (typeof onEnabled === 'function') onEnabled();
+                  if (typeof onEnabled === 'function') onEnabled(true);
                   setActivated(true);
                 } else {
-                  if (typeof onDisabled === 'function') onDisabled();
+                  if (typeof onDisabled === 'function') onDisabled(true);
                   setActivated(false);
                 }
                 _context.next = 13;
@@ -102,7 +102,7 @@ var NotificationsButton = function NotificationsButton(_ref) {
               case 7:
                 _context.prev = 7;
                 _context.t0 = _context["catch"](0);
-                if (typeof onDisabled === 'function') onDisabled();
+                if (typeof onDisabled === 'function') onDisabled(true);
                 setActivated(false);
                 setEmail(null);
                 setPhone(null);
@@ -462,6 +462,7 @@ var NotificationsButton = function NotificationsButton(_ref) {
       marginTop: '0px',
       color: color
     },
+    id: 'notificationsButton',
     onClick: !activated ? showModal : disableNotifications,
     className: "".concat(buttonClassName, " vertical")
   }, /*#__PURE__*/React.createElement("i", {
@@ -475,6 +476,7 @@ var NotificationsButton = function NotificationsButton(_ref) {
     style: {
       marginTop: '0px'
     },
+    id: 'notificationsButton',
     onClick: !activated ? showModal : disableNotifications,
     className: "".concat(buttonClassName, " vertical")
   }, /*#__PURE__*/React.createElement("i", {

@@ -42,16 +42,16 @@ const NotificationsButton = ({onDisabled, onEnabled, api_key, user_address, noti
         try {
           let profile = await sg.getProfile({user_address,notification_group});
           if(profile.email || profile.phone) {
-            if(typeof onEnabled === 'function') onEnabled();
+            if(typeof onEnabled === 'function') onEnabled(true);
             setActivated(true);
           }
           else {
-            if(typeof onDisabled === 'function') onDisabled();
+            if(typeof onDisabled === 'function') onDisabled(true);
             setActivated(false);
           }
         }
         catch(err){
-          if(typeof onDisabled === 'function') onDisabled();
+          if(typeof onDisabled === 'function') onDisabled(true);
           setActivated(false);
           setEmail(null);
           setPhone(null);
@@ -211,14 +211,14 @@ const NotificationsButton = ({onDisabled, onEnabled, api_key, user_address, noti
       </div>
 
       {(size === 'large' && !loading) &&
-        <button style={{marginTop:'0px',color}} onClick={!activated ? showModal : disableNotifications} className={`${buttonClassName} vertical`}> 
+        <button style={{marginTop:'0px',color}} id={'notificationsButton'} onClick={!activated ? showModal : disableNotifications} className={`${buttonClassName} vertical`}> 
           <i style={{fontSize:'20px', marginRight:'10px', color}} className={`bi bi-${activated ? 'bell-slash' : 'bell'}`}></i>
           {activated ? "Disable Notifications" : "Enable Notifications"}
         </button>
       }
 
       {(size === 'small' && !loading) &&
-        <button style={{marginTop:'0px'}} onClick={!activated ? showModal : disableNotifications} className={`${buttonClassName} vertical`}> 
+        <button style={{marginTop:'0px'}} id={'notificationsButton'} onClick={!activated ? showModal : disableNotifications} className={`${buttonClassName} vertical`}> 
           <i style={{fontSize:'20px',color}} className={`bi bi-${activated ? 'bell-slash' : 'bell'}`}></i>
         </button>
       }

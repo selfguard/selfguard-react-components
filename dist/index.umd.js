@@ -98,10 +98,10 @@
                 case 3:
                   profile = _context.sent;
                   if (profile.email || profile.phone) {
-                    if (typeof onEnabled === 'function') onEnabled();
+                    if (typeof onEnabled === 'function') onEnabled(true);
                     setActivated(true);
                   } else {
-                    if (typeof onDisabled === 'function') onDisabled();
+                    if (typeof onDisabled === 'function') onDisabled(true);
                     setActivated(false);
                   }
                   _context.next = 13;
@@ -109,7 +109,7 @@
                 case 7:
                   _context.prev = 7;
                   _context.t0 = _context["catch"](0);
-                  if (typeof onDisabled === 'function') onDisabled();
+                  if (typeof onDisabled === 'function') onDisabled(true);
                   setActivated(false);
                   setEmail(null);
                   setPhone(null);
@@ -469,6 +469,7 @@
         marginTop: '0px',
         color: color
       },
+      id: 'notificationsButton',
       onClick: !activated ? showModal : disableNotifications,
       className: "".concat(buttonClassName, " vertical")
     }, /*#__PURE__*/React__default["default"].createElement("i", {
@@ -482,6 +483,7 @@
       style: {
         marginTop: '0px'
       },
+      id: 'notificationsButton',
       onClick: !activated ? showModal : disableNotifications,
       className: "".concat(buttonClassName, " vertical")
     }, /*#__PURE__*/React__default["default"].createElement("i", {

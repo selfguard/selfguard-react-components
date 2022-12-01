@@ -271,22 +271,7 @@
     }
     return /*#__PURE__*/React__default["default"].createElement("div", {
       id: "notification-component"
-    }, /*#__PURE__*/React__default["default"].createElement("link", {
-      rel: "stylesheet",
-      href: "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
-    }), /*#__PURE__*/React__default["default"].createElement("link", {
-      href: "https://api.fonts.coollabs.io/css2?family=Roboto&display=swap",
-      rel: "stylesheet"
-    }), /*#__PURE__*/React__default["default"].createElement("link", {
-      href: "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css",
-      rel: "stylesheet",
-      integrity: "sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC",
-      crossOrigin: "anonymous"
-    }), /*#__PURE__*/React__default["default"].createElement("script", {
-      src: "https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js",
-      integrity: "sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa",
-      crossOrigin: "anonymous"
-    }), /*#__PURE__*/React__default["default"].createElement("div", {
+    }, /*#__PURE__*/React__default["default"].createElement("div", {
       className: "modal fade",
       style: {
         margin: 0,

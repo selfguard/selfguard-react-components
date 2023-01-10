@@ -1,6 +1,6 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@babel/runtime/helpers/asyncToGenerator'), require('@babel/runtime/helpers/slicedToArray'), require('@babel/runtime/regenerator'), require('react'), require('react-phone-input-2'), require('toastify-js'), require('jquery'), require('react-spinners/ClipLoader'), require('selfguard-client'), require('react-phone-input-2/lib/style.css')) :
-  typeof define === 'function' && define.amd ? define(['@babel/runtime/helpers/asyncToGenerator', '@babel/runtime/helpers/slicedToArray', '@babel/runtime/regenerator', 'react', 'react-phone-input-2', 'toastify-js', 'jquery', 'react-spinners/ClipLoader', 'selfguard-client', 'react-phone-input-2/lib/style.css'], factory) :
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@babel/runtime/helpers/asyncToGenerator'), require('@babel/runtime/helpers/slicedToArray'), require('@babel/runtime/regenerator'), require('react'), require('react-phone-input-2'), require('toastify-js'), require('jquery'), require('react-spinners/ClipLoader'), require('selfguard-client'), require('react-phone-input-2/lib/style.css'), require('bootstrap/dist/js/bootstrap.min.js')) :
+  typeof define === 'function' && define.amd ? define(['@babel/runtime/helpers/asyncToGenerator', '@babel/runtime/helpers/slicedToArray', '@babel/runtime/regenerator', 'react', 'react-phone-input-2', 'toastify-js', 'jquery', 'react-spinners/ClipLoader', 'selfguard-client', 'react-phone-input-2/lib/style.css', 'bootstrap/dist/js/bootstrap.min.js'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global["react-awesome-buttons"] = factory(global._asyncToGenerator, global._slicedToArray, global._regeneratorRuntime, global.React, global.Input, global.Toastify, global.$, global.ClipLoader, global.SelfGuard));
 })(this, (function (_asyncToGenerator, _slicedToArray, _regeneratorRuntime, React, Input, Toastify, $, ClipLoader, SelfGuard) { 'use strict';
 
@@ -271,7 +271,22 @@
     }
     return /*#__PURE__*/React__default["default"].createElement("div", {
       id: "notification-component"
-    }, /*#__PURE__*/React__default["default"].createElement("div", {
+    }, /*#__PURE__*/React__default["default"].createElement("link", {
+      rel: "stylesheet",
+      href: "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+    }), /*#__PURE__*/React__default["default"].createElement("link", {
+      href: "https://api.fonts.coollabs.io/css2?family=Roboto&display=swap",
+      rel: "stylesheet"
+    }), /*#__PURE__*/React__default["default"].createElement("link", {
+      href: "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css",
+      rel: "stylesheet",
+      integrity: "sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC",
+      crossOrigin: "anonymous"
+    }), /*#__PURE__*/React__default["default"].createElement("script", {
+      src: "https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js",
+      integrity: "sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa",
+      crossOrigin: "anonymous"
+    }), /*#__PURE__*/React__default["default"].createElement("div", {
       className: "modal fade",
       style: {
         margin: 0,

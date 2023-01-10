@@ -1,6 +1,6 @@
 {
 	"name": "selfguard-react-components",
-	"version": "1.1.13",
+	"version": "1.1.14",
 	"description": "your description",
 	"main": "dist/index.cjs.js",
 	"scripts": {
@@ -12,7 +12,9 @@
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.12.5",
+		"@popperjs/core": "^2.11.6",
 		"autoprefixer": "^10.4.12",
+		"bootstrap": "^5.2.3",
 		"google-libphonenumber": "^3.2.31",
 		"libphonenumber-js": "^1.10.13",
 		"react-phone-input-2": "^2.15.1",

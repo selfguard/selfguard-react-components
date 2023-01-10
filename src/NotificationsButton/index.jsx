@@ -7,6 +7,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import SelfGuard from 'selfguard-client';
 import './index.css';
 import 'react-phone-input-2/lib/style.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
 
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 let domain = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL : "http://localhost:8080"
@@ -145,6 +146,10 @@ const NotificationsButton = ({onDisabled, onEnabled, api_key, user_address, noti
 
   return (
     <div id='notification-component'>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"/>
+      <link href="https://api.fonts.coollabs.io/css2?family=Roboto&display=swap" rel="stylesheet"/>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossOrigin="anonymous"/>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossOrigin="anonymous"></script>
       <div className="modal fade" style={{margin:0,zIndex:100000}} tabIndex="-1" id={'notificationsModal'} >
         <div className="modal-dialog modal-dialog-centered" style={{justifyContent:'space-around'}}>
           <div style={{textAlign:'left'}}>

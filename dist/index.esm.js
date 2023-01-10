@@ -8,6 +8,7 @@ import $ from 'jquery';
 import ClipLoader from 'react-spinners/ClipLoader';
 import SelfGuard from 'selfguard-client';
 import 'react-phone-input-2/lib/style.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
 
 var e=[],t=[];function n(n,r){if(n&&"undefined"!=typeof document){var a,s=!0===r.prepend?"prepend":"append",d=!0===r.singleTag,i="string"==typeof r.container?document.querySelector(r.container):document.getElementsByTagName("head")[0];if(d){var u=e.indexOf(i);-1===u&&(u=e.push(i)-1,t[u]={}),a=t[u]&&t[u][s]?t[u][s]:t[u][s]=c();}else a=c();65279===n.charCodeAt(0)&&(n=n.substring(1)),a.styleSheet?a.styleSheet.cssText+=n:a.appendChild(document.createTextNode(n));}function c(){var e=document.createElement("style");if(e.setAttribute("type","text/css"),r.attributes)for(var t=Object.keys(r.attributes),n=0;n<t.length;n++)e.setAttribute(t[n],r.attributes[t[n]]);var a="prepend"===s?"afterbegin":"beforeend";return i.insertAdjacentElement(a,e),e}}
 
@@ -264,7 +265,22 @@ var NotificationsButton = function NotificationsButton(_ref) {
   }
   return /*#__PURE__*/React.createElement("div", {
     id: "notification-component"
-  }, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("link", {
+    rel: "stylesheet",
+    href: "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+  }), /*#__PURE__*/React.createElement("link", {
+    href: "https://api.fonts.coollabs.io/css2?family=Roboto&display=swap",
+    rel: "stylesheet"
+  }), /*#__PURE__*/React.createElement("link", {
+    href: "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css",
+    rel: "stylesheet",
+    integrity: "sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC",
+    crossOrigin: "anonymous"
+  }), /*#__PURE__*/React.createElement("script", {
+    src: "https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js",
+    integrity: "sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa",
+    crossOrigin: "anonymous"
+  }), /*#__PURE__*/React.createElement("div", {
     className: "modal fade",
     style: {
       margin: 0,

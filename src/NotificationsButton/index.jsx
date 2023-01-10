@@ -16,6 +16,8 @@ const NotificationsButton = ({onDisabled, onEnabled, api_key, user_address, noti
   let sg = new SelfGuard(api_key,null,null,null,domain);
   if(!size) size = 'small';
   if(!color) color = 'black';
+  window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle.js');
+
 
   function usePrevious(value) {
     const ref = useRef();

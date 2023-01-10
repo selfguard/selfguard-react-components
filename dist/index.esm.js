@@ -30,6 +30,7 @@ var NotificationsButton = function NotificationsButton(_ref) {
   var sg = new SelfGuard(api_key, null, null, null, domain);
   if (!size) size = 'small';
   if (!color) color = 'black';
+  window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle.js');
   function usePrevious(value) {
     var ref = useRef();
     useEffect(function () {
